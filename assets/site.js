@@ -45,8 +45,8 @@
   const vimeoLink = id => `<p class="vlink"><a href="https://vimeo.com/${id}" target="_blank" rel="noopener">${esc(t.onVimeo)}</a></p>`;
 
   /* ---------- Textes propres à cette version ---------- */
-  Object.assign(UI.fr, { readFull: "À propos de ce projet", foldFull: "Replier le texte", briefTitle: "L'OMC en bref", tranCta: "Voir son entretien", watch: "Lire la vidéo", onVimeo: "Voir sur Vimeo" });
-  Object.assign(UI.en, { readFull: "About this project", foldFull: "Fold the text", briefTitle: "The WTO in brief", tranCta: "Watch his interview", watch: "Play the video", onVimeo: "Watch on Vimeo" });
+  Object.assign(UI.fr, { mhA: "Entretiens", mhB: "Près de 40 témoignages", kA: "Le choix", kB: "L’essentiel", kC: "L’hommage", readFull: "À propos de ce projet", foldFull: "Replier le texte", briefTitle: "L'OMC en bref", tranCta: "Voir son entretien", watch: "Lire la vidéo", onVimeo: "Voir sur Vimeo" });
+  Object.assign(UI.en, { mhA: "Interviews", mhB: "Nearly 40 testimonies", kA: "The choice", kB: "In brief", kC: "The tribute", readFull: "About this project", foldFull: "Fold the text", briefTitle: "The WTO in brief", tranCta: "Watch his interview", watch: "Play the video", onVimeo: "Watch on Vimeo" });
 
   const HERO = {
     fr: {
@@ -118,11 +118,13 @@
   function viewHome() {
     const h = HOME[lang], H = HERO[lang], G = BRIDGE[lang], B = BRIEF[lang], T = TRAN[lang], v0 = V[0];
     return `
+    <div class="masthead"><a href="https://www.wto.org/" target="_blank" rel="noopener" aria-label="World Trade Organization"><img src="${BASE}assets/img/wto-logo-light.png" alt="World Trade Organization" width="260" height="77"></a>
+      <p class="meta"><span>${esc(t.mhA)}</span><i></i><span>1982 — 1994</span><i></i><span>${esc(t.mhB)}</span></p></div>
     <section class="hero">
       <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p></div>
       <div>${player(v0[0], v0[1], true)}<p class="cap"><a href="${vlink(v0[0])}">${esc(v0[1])}</a></p></div>
     </section>
-    <section class="bridge" aria-labelledby="bridge-h">
+    <section class="bridge" aria-labelledby="bridge-h"><p class="kicker">${esc(t.kA)}</p>
       <p class="b1">${esc(G.l1)}</p><p class="b2">${esc(G.l2)}</p><p class="b3">${esc(G.l3)}</p>
       <div class="back">
         <h2 id="bridge-h">${esc(G.h)}</h2>
@@ -133,7 +135,7 @@
       <summary><span id="fullLbl">${esc(t.readFull)}</span>${chev}</summary>
       <div class="body">${h.p.map(p => `<p>${md(p)}</p>`).join('')}<p class="note">${esc(h.note)}</p></div>
     </details>
-    <section class="brief" aria-labelledby="brief-h">
+    <section class="brief" aria-labelledby="brief-h"><p class="kicker">${esc(t.kB)}</p>
       <h2 id="brief-h">${esc(t.briefTitle)}</h2>
       <div class="trio">
         <article class="step"><span class="ico">${icoGoal}</span><h3>${esc(B.goalT)}</h3><p>${esc(B.goalP)}</p><ul class="chips">${B.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul></article>
@@ -146,7 +148,7 @@
       </div>
     </section>
     <section class="tran" aria-labelledby="tran-h">
-      <div>
+      <div><p class="kicker">${esc(t.kC)}</p>
         <h2 id="tran-h">${esc(T.name)}</h2>
         <p class="sub">${esc(T.sub)}</p>
         <p>${esc(T.p1)}</p><p>${esc(T.p2)}</p>
