@@ -177,7 +177,7 @@
   }
   function viewPortfolio() {
     return `<div class="gallery">${PORTFOLIO.map((p, i) => {
-      const small = 'portfolio_images/' + p[3] + '_small.jpg';
+      const small = 'portfolio_images/' + p[3] + '.jpg';
       return `<figure class="tile"><button type="button" data-i="${i}" aria-label="${esc(p[0] || t.photo + ' ' + (i + 1))}"><div class="ph" style="--h:${p[2]}"><img src="${esc(asset(small))}" alt="${esc(p[0] || t.photo + ' ' + (i + 1))}" loading="lazy" onerror="${imgFallback(small)}"></div></button>${p[0] ? `<figcaption>${esc(p[0])}</figcaption>` : ''}</figure>`;
     }).join('')}</div>
     <div class="lightbox" id="lb" hidden role="dialog" aria-modal="true" aria-label="${esc(t.photo)}">
