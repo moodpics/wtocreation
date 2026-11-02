@@ -1,6 +1,6 @@
 const UI = {
   fr: {
-    nav: [["accueil","Accueil"],["videos","Vidéos"],["a-propos","A Propos"],["portfolio","Portfolio"],["contact","Contact"],["liens","Liens"],["remerciements","Remerciements"]],
+    nav: [["accueil","Accueil"],["videos","Vidéos"],["a-propos","A Propos"],["portfolio","Photos"],["contact","Contact"],["liens","Liens"],["remerciements","Remerciements"]],
     videosTitle: "Vidéos", search: "Chercher un nom ou un poste", none: "Aucune vidéo ne correspond.",
     prev: "Précédente", next: "Suivante", back: "Toutes les vidéos", others: "Vidéos", opening: "Voir la vidéo",
     translation: "Traduction", questionsPdf: "Questions des entrevues (PDF)", more: "En savoir plus...",
@@ -8,7 +8,7 @@ const UI = {
     menu: "Menu", close: "Fermer", photo: "Photo", formInvalid: "Renseignez votre nom et une adresse e-mail valide.", formUnset: "Ce formulaire n'est pas encore relié à une adresse e-mail.", formOpened: "Votre application de messagerie s'ouvre avec le message prêt à envoyer."
   },
   en: {
-    nav: [["accueil","Home"],["videos","Videos"],["a-propos","About us"],["portfolio","Portfolio"],["contact","Contact"],["liens","Links"],["remerciements","Thanks"]],
+    nav: [["accueil","Home"],["videos","Videos"],["a-propos","About us"],["portfolio","Photos"],["contact","Contact"],["liens","Links"],["remerciements","Thanks"]],
     videosTitle: "Videos", search: "Search a name or a position", none: "No video matches.",
     prev: "Previous", next: "Next", back: "All videos", others: "Videos", opening: "Watch the video",
     translation: "Translation", questionsPdf: "Interview questions (PDF)", more: "Learn more...",

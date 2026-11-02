@@ -178,13 +178,15 @@
   function viewPortfolio() {
     return `<div class="gallery">${PORTFOLIO.map((p, i) => {
       const small = 'portfolio_images/' + p[3] + '.jpg';
-      return `<figure class="tile"><button type="button" data-i="${i}" aria-label="${esc(p[0] || t.photo + ' ' + (i + 1))}"><div class="ph" style="--h:${p[2]}"><img src="${esc(asset(small))}" alt="${esc(p[0] || t.photo + ' ' + (i + 1))}" loading="lazy" onerror="${imgFallback(small)}"></div></button>${p[0] ? `<figcaption>${esc(p[0])}</figcaption>` : ''}</figure>`;
+      return `<figure class="tile" style="--d:${i * 60}ms"><button type="button" data-i="${i}" aria-label="${esc(p[0] || t.photo + ' ' + (i + 1))}"><div class="ph" style="--h:${p[2]}"><img src="${esc(asset(small))}" alt="${esc(p[0] || t.photo + ' ' + (i + 1))}" loading="lazy" onerror="${imgFallback(small)}"></div></button>${p[0] ? `<figcaption>${esc(p[0])}</figcaption>` : ''}</figure>`;
     }).join('')}</div>
     <div class="lightbox" id="lb" hidden role="dialog" aria-modal="true" aria-label="${esc(t.photo)}">
       <div class="lb-box">
-        <div class="lb-img"><img id="lbImg" alt=""></div>
+        <div class="lb-count" id="lbCount" aria-live="polite"></div>
+        <div class="lb-img" id="lbStage"><img id="lbImg" alt="" draggable="false"></div>
         <div class="lb-cap" id="lbCap"></div>
         <div class="lb-bar"><button type="button" id="lbPrev" aria-label="${esc(t.prev)}">‹</button><button type="button" id="lbClose" aria-label="${esc(t.close)}">×</button><button type="button" id="lbNext" aria-label="${esc(t.next)}">›</button></div>
+        <div class="lb-thumbs" id="lbThumbs">${PORTFOLIO.map((p, i) => `<button type="button" data-i="${i}" aria-label="${t.photo} ${i + 1}"><img src="${esc(asset('portfolio_images/' + p[3] + '.jpg'))}" alt="" loading="lazy"></button>`).join('')}</div>
       </div>
     </div>`;
   }
@@ -258,7 +260,14 @@
     msg.textContent = t.formOpened; msg.hidden = false;
   });
 
-  /* Visionneuse du portfolio */
+  /* Apparition progressive des vignettes */
+  const tiles = document.querySelectorAll('.tile');
+  if (tiles.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('seen'); io.unobserve(en.target); } }), { threshold: .1 });
+    tiles.forEach(el => { el.classList.add('rv'); io.observe(el); });
+  }
+
+  /* Visionneuse des photos */
   const lb = $('lb');
   if (lb) {
     let cur = 0;
@@ -266,18 +275,30 @@
       cur = (i + PORTFOLIO.length) % PORTFOLIO.length;
       const p = PORTFOLIO[cur], big = 'portfolio_images/' + p[3] + '.jpg';
       const im = $('lbImg'); im.onerror = () => { im.onerror = null; im.src = CONFIG.oldSite + big; };
-      im.src = asset(big); im.alt = p[0] || t.photo + ' ' + (cur + 1);
+      im.classList.remove('in'); im.classList.remove('zoom'); im.src = asset(big); im.alt = p[0] || t.photo + ' ' + (cur + 1);
+      im.onload = () => requestAnimationFrame(() => im.classList.add('in'));
+      $('lbCount').textContent = (cur + 1) + ' / ' + PORTFOLIO.length;
+      document.querySelectorAll('#lbThumbs button').forEach((b, k) => { b.classList.toggle('on', k === cur); if (k === cur) b.scrollIntoView({ block: 'nearest', inline: 'center' }); });
+      [cur - 1, cur + 1].forEach(k => { new Image().src = asset('portfolio_images/' + PORTFOLIO[(k + PORTFOLIO.length) % PORTFOLIO.length][3] + '.jpg'); });
+      document.body.style.overflow = 'hidden';
       $('lbCap').innerHTML = esc(p[0]) + (p[1] ? ` <a href="${esc(asset('pdf/Dec_15_1993_Green_Room_FR.pdf'))}" target="_blank" rel="noopener">${esc(t.more)}</a>` : '');
       lb.hidden = false; $('lbClose').focus();
     };
     document.querySelectorAll('.tile button').forEach(b => b.addEventListener('click', () => open(+b.dataset.i)));
     $('lbPrev').onclick = () => open(cur - 1);
     $('lbNext').onclick = () => open(cur + 1);
-    $('lbClose').onclick = () => { lb.hidden = true; };
-    lb.addEventListener('click', e => { if (e.target === lb) lb.hidden = true; });
+    const shut = () => { lb.hidden = true; document.body.style.overflow = ''; };
+    $('lbClose').onclick = shut;
+    lb.addEventListener('click', e => { if (e.target === lb) shut(); });
+    document.querySelectorAll('#lbThumbs button').forEach(b => b.addEventListener('click', () => open(+b.dataset.i)));
+    $('lbImg').addEventListener('click', e => { e.stopPropagation(); e.currentTarget.classList.toggle('zoom'); });
+    let x0 = null;
+    const stage = $('lbStage');
+    stage.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) open(cur + (dx < 0 ? 1 : -1)); });
     document.addEventListener('keydown', e => {
       if (lb.hidden) return;
-      if (e.key === 'Escape') lb.hidden = true;
+      if (e.key === 'Escape') shut();
       if (e.key === 'ArrowLeft') open(cur - 1);
       if (e.key === 'ArrowRight') open(cur + 1);
     });
