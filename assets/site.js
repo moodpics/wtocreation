@@ -20,7 +20,7 @@
   const asset = p => (CONFIG.localAssets ? BASE + p : CONFIG.oldSite + p);
   const imgFallback = p => CONFIG.localAssets ? `this.onerror=function(){this.remove()};this.src='${CONFIG.oldSite}${p}'` : `this.remove()`;
 
-  const wtoLogo = () => `<a class="wto-logo" href="https://www.wto.org/" target="_blank" rel="noopener"><img src="${BASE}assets/img/wto-logo.png" alt="World Trade Organization" width="259" height="77"></a>`;
+  const wtoLogo = () => `<a class="wto-logo" href="https://www.wto.org/" target="_blank" rel="noopener"><img src="${BASE}assets/img/wto-logo-light.png" alt="World Trade Organization" width="259" height="77"></a>`;
   const playSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>';
   const chev = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>';
   const icoGoal = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>';
