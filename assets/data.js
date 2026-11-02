@@ -387,6 +387,6 @@ const VM = {
 
 const CONFIG = {
   oldSite: "https://www.wtocreation.org/",
-  localAssets: false,   /* passer à true quand portfolio_images/ et pdf/ sont dans ce dépôt */
+  localAssets: true,    /* passer à true quand portfolio_images/ et pdf/ sont dans ce dépôt */
   contactEmail: "sebastientran@icloud.com"      /* adresse qui reçoit les messages du formulaire de contact */
 };
