@@ -45,18 +45,30 @@
   const vimeoLink = id => `<p class="vlink"><a href="https://vimeo.com/${id}" target="_blank" rel="noopener">${esc(t.onVimeo)}</a></p>`;
 
   /* ---------- Textes propres à cette version ---------- */
-  Object.assign(UI.fr, { readFull: "Lire le texte complet de présentation", foldFull: "Replier le texte", briefTitle: "L'OMC en bref", tranCta: "Voir son entretien", watch: "Lire la vidéo", onVimeo: "Voir sur Vimeo" });
-  Object.assign(UI.en, { readFull: "Read the full introduction", foldFull: "Fold the text", briefTitle: "The WTO in brief", tranCta: "Watch his interview", watch: "Play the video", onVimeo: "Watch on Vimeo" });
+  Object.assign(UI.fr, { readFull: "À propos de ce projet", foldFull: "Replier le texte", briefTitle: "L'OMC en bref", tranCta: "Voir son entretien", watch: "Lire la vidéo", onVimeo: "Voir sur Vimeo" });
+  Object.assign(UI.en, { readFull: "About this project", foldFull: "Fold the text", briefTitle: "The WTO in brief", tranCta: "Watch his interview", watch: "Play the video", onVimeo: "Watch on Vimeo" });
 
   const HERO = {
     fr: {
-      lead: "Les hommes et les femmes qui ont créé l’OMC partagent une vision commune concernant la croissance économique et le développement durables pour tous.",
-      sub: "Ce site est une pièce de l’héritage de ces hommes et ces femmes, et raconte leur histoire avec leurs propres mots pour la période allant de 1982, parfois même avant, jusqu’en 1994."
+      lead: "Ils l’ont créée. Ils racontent.",
+      sub: "Près de 40 ministres, ambassadeurs et négociateurs témoignent, avec leurs propres mots, de la naissance de l’OMC. De 1982 à 1994."
     },
     en: {
-      lead: "With recollections that span the 1982 – 1994 period, this project tells the story of the WTO in the words of the men and women who created it.",
-      sub: "The project has now grown into a collection of interviews from nearly 40 ministers, ambassadors, chief negotiators, and other key figures."
+      lead: "They created it. They tell the story.",
+      sub: "Nearly 40 ministers, ambassadors and negotiators recall, in their own words, the birth of the WTO. From 1982 to 1994."
     }
+  };
+  const BRIDGE = {
+    fr: { l1: "En 1994, des hommes et des femmes ont fait un choix.", l2: "Des règles communes, plutôt que le rapport de force.", l3: "Aujourd’hui, ces règles vacillent.",
+      h: "Revenir aux intentions d’origine",
+      p1: "L’OMC reposait sur une idée simple : des règles négociées par tous, appliquées à tous, et un système efficace pour régler les différends. Ce dernier pilier est aujourd’hui grippé. Depuis décembre 2019, faute d’accord entre les membres sur la nomination de nouveaux juges, l’Organe d’appel n’a plus le quorum pour statuer. Les tentatives de réforme n’ont pas abouti à ce jour, et des solutions provisoires, entre une partie seulement des membres, ont pris le relais.",
+      p2: "Une règle sans arbitre commun, c’est un retour progressif vers le rapport de force. C’est précisément ce que ces hommes et ces femmes avaient voulu dépasser.",
+      p3: "Pour savoir ce qu’il faut préserver, il faut entendre ceux qui l’ont construit." },
+    en: { l1: "In 1994, men and women made a choice.", l2: "Common rules, rather than the balance of power.", l3: "Today, those rules are wavering.",
+      h: "Going back to the original intentions",
+      p1: "The WTO rested on a simple idea: rules negotiated by all, applied to all, and an effective system to settle disputes. That last pillar is now stuck. Since December 2019, for lack of agreement among members on appointing new judges, the Appellate Body no longer has a quorum to rule. Reform attempts have not succeeded to date, and interim solutions between only some of the members have taken over.",
+      p2: "A rule without a common arbiter is a gradual return to the balance of power. That is precisely what these men and women had set out to move beyond.",
+      p3: "To know what must be preserved, we have to hear those who built it." }
   };
   const BRIEF = {
     fr: {
@@ -104,11 +116,18 @@
   const filtered = () => V.filter(v => !query || (v[1] + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
   function viewHome() {
-    const h = HOME[lang], H = HERO[lang], B = BRIEF[lang], T = TRAN[lang], v0 = V[0];
+    const h = HOME[lang], H = HERO[lang], G = BRIDGE[lang], B = BRIEF[lang], T = TRAN[lang], v0 = V[0];
     return `
     <section class="hero">
       <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p></div>
       <div>${player(v0[0], v0[1], true)}<p class="cap"><a href="${vlink(v0[0])}">${esc(v0[1])}</a></p></div>
+    </section>
+    <section class="bridge" aria-labelledby="bridge-h">
+      <p class="b1">${esc(G.l1)}</p><p class="b2">${esc(G.l2)}</p><p class="b3">${esc(G.l3)}</p>
+      <div class="back">
+        <h2 id="bridge-h">${esc(G.h)}</h2>
+        <p>${esc(G.p1)}</p><p>${esc(G.p2)}</p><p class="close">${esc(G.p3)}</p>
+      </div>
     </section>
     <details class="full" id="full">
       <summary><span id="fullLbl">${esc(t.readFull)}</span>${chev}</summary>
