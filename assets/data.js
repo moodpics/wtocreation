@@ -37,7 +37,7 @@ const HOME = {
 
 /* Les descriptions des vidéos sont en français sur les deux versions du site actuel. */
 const V = [
- ["30838690","Herman Van Rompuy","Herman Van Rompuy est actuellement président du Conseil européen. Il est l'ancien Premier ministre de Belgique. Dans cette vidéo, M. Van Rompuy nous fournit l'introduction de ce projet de documentaire de l'OMC, , et souligne l'importance du multilatéralisme, source de succès de l'OMC, et de ce que cela peut signifier pour les étudiants, les travailleurs, les législateurs et les diplomates d'aujourd'hui."],
+ ["30838690","Herman Van Rompuy","Herman Van Rompuy a été le premier président permanent du Conseil européen, de décembre 2009 à novembre 2014, après avoir été Premier ministre de Belgique (2008-2009). Il préside depuis 2019 le conseil d'administration du Collège d'Europe. Dans cette vidéo, enregistrée alors qu'il exerçait la présidence du Conseil européen, M. Van Rompuy nous fournit l'introduction de ce projet de documentaire de l'OMC, et souligne l'importance du multilatéralisme, source de succès de l'OMC, et de ce que cela peut signifier pour les étudiants, les travailleurs, les législateurs et les diplomates d'aujourd'hui."],
  ["29521250","Pascal Lamy","DG de l'OMC de Septembre 2005 à Septembre 2013 ;. Ancien commissaire européen au Commerce (2000-2004); Chef de cabinet pour le président de la Commission Delors CE (1983-1993)."],
  ["31135707","Peter Sutherland","Peter Sutherland, Directeur Général de l'OMC/GATT (1993-1995); Président LSE (2009- )."],
  ["31350676","Paul Trân","Ambassadeur et Représentant permanent de la Communauté européenne à Genève de 1979 à 1994."],

@@ -362,3 +362,11 @@ ul { list-style: none; }
 .bridge .back p:first-of-type::first-letter { all: unset; }
 .hero .player { box-shadow: 0 40px 90px -50px rgba(226,163,59,.22); }
 .tran .player { box-shadow: 0 40px 90px -50px rgba(226,163,59,.22); }
+
+/* Alignement à gauche (accueil) */
+.masthead { text-align: left; }
+.masthead .meta { justify-content: flex-start; }
+.hero { text-align: left; }
+.hero h1 { margin: 0; max-width: 16ch; }
+.hero .sub { margin: 26px 0 0; max-width: 40ch; }
+.hero .player, .hero .cap { margin-left: 0; margin-right: 0; width: 100%; }
