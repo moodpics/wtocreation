@@ -1,0 +1,288 @@
+/* WTOcreation : affichage du site (données dans data.js). Chaque page HTML porte data-route, data-lang et data-base. */
+(function () {
+  const root = document.documentElement;
+  const BASE = root.dataset.base || '';
+  const ROUTE = root.dataset.route || 'accueil';
+  const lang = root.dataset.lang === 'en' ? 'en' : 'fr';
+  const LB = lang === 'en' ? BASE + 'en/' : BASE;      /* racine des pages dans la langue courante */
+  const OTHER = lang === 'en' ? BASE : BASE + 'en/';   /* racine des pages dans l'autre langue */
+  const PATHS = { accueil: '', videos: 'videos/', 'a-propos': 'a-propos/', portfolio: 'portfolio/', contact: 'contact/', liens: 'liens/', remerciements: 'remerciements/' };
+  const NAV_KEYS = ['accueil', 'videos', 'a-propos', 'portfolio', 'contact', 'liens', 'remerciements'];
+
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const md = s => esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  const $ = id => document.getElementById(id);
+  const t = UI[lang];
+
+  /* Fichiers du site d'origine (photos du portfolio, PDF) : lus sur l'ancien site tant qu'ils ne sont pas dans ce dépôt */
+  const asset = p => (CONFIG.localAssets ? BASE + p : CONFIG.oldSite + p);
+  const imgFallback = p => CONFIG.localAssets ? `this.onerror=function(){this.remove()};this.src='${CONFIG.oldSite}${p}'` : `this.remove()`;
+
+  const wtoLogo = () => `<a class="wto-logo" href="https://www.wto.org/" target="_blank" rel="noopener"><img src="${BASE}assets/img/wto-logo.png" alt="World Trade Organization" width="259" height="77"></a>`;
+  const playSvg = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"/></svg>';
+  const chev = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9l7 7 7-7"/></svg>';
+  const icoGoal = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.2"/></svg>';
+  const icoRules = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M6 20h12M5 8h14"/><path d="M5 8l-2.5 6a3 3 0 0 0 5 0L5 8zM19 8l-2.5 6a3 3 0 0 0 5 0L19 8z"/></svg>';
+  const icoResult = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V8M10 20v-6M16 20v-9M22 20H2"/><path d="M3 5l6 3 5-4 7 3"/></svg>';
+
+  /* ---------- Vidéos Vimeo ---------- */
+  const vthumb = id => VM[id] ? `https://i.vimeocdn.com/video/${VM[id][1]}-d_640x360?&r=pad&region=us` : '';
+  const vlink = id => `${LB}videos/?video=${id}`;
+  const dur = s => { const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; };
+  const initials = n => n.replace(/\(.*\)/, '').replace(/,.*/, '').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('');
+  const vimeoSrc = (id, auto) => `https://player.vimeo.com/video/${id}?dnt=1${auto ? '&autoplay=1' : ''}`;
+  const iframe = (id, title, auto) => `<iframe src="${vimeoSrc(id, auto)}" title="${esc(title)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+  /* facade : vignette puis lecteur au clic (accueil) ; lecteur direct (page vidéo) */
+  function player(id, title, facade) {
+    if (!facade) return `<div class="player live">${iframe(id, title, false)}</div>`;
+    return `<div class="player" data-id="${id}" data-title="${esc(title)}">
+      ${VM[id] ? `<img src="${vthumb(id)}" alt="" loading="lazy" onerror="this.remove()">` : ''}
+      <button type="button" class="ring" aria-label="${esc(t.watch)} : ${esc(title)}">${playSvg}</button>
+    </div>`;
+  }
+  const vimeoLink = id => `<p class="vlink"><a href="https://vimeo.com/${id}" target="_blank" rel="noopener">${esc(t.onVimeo)}</a></p>`;
+
+  /* ---------- Textes propres à cette version ---------- */
+  Object.assign(UI.fr, { readFull: "Lire le texte complet de présentation", foldFull: "Replier le texte", briefTitle: "L'OMC en bref", tranCta: "Voir son entretien", watch: "Lire la vidéo", onVimeo: "Voir sur Vimeo" });
+  Object.assign(UI.en, { readFull: "Read the full introduction", foldFull: "Fold the text", briefTitle: "The WTO in brief", tranCta: "Watch his interview", watch: "Play the video", onVimeo: "Watch on Vimeo" });
+
+  const HERO = {
+    fr: {
+      lead: "Les hommes et les femmes qui ont créé l’OMC partagent une vision commune concernant la croissance économique et le développement durables pour tous.",
+      sub: "Ce site est une pièce de l’héritage de ces hommes et ces femmes, et raconte leur histoire avec leurs propres mots pour la période allant de 1982, parfois même avant, jusqu’en 1994."
+    },
+    en: {
+      lead: "With recollections that span the 1982 – 1994 period, this project tells the story of the WTO in the words of the men and women who created it.",
+      sub: "The project has now grown into a collection of interviews from nearly 40 ministers, ambassadors, chief negotiators, and other key figures."
+    }
+  };
+  const BRIEF = {
+    fr: {
+      goalT: "Le but", goalP: "Instaurer un ordre international pour développer les échanges commerciaux de façon équitable, stimuler la croissance et assurer un développement durable mondial.",
+      chips: ["Des échanges équitables", "La croissance", "Un développement durable"],
+      meansT: "Le moyen", meansP: "Des règles négociées, et un système efficace de règlement des différends.",
+      resultT: "Le résultat", resultP: "Les obstacles aux échanges commerciaux mondiaux ont été considérablement réduits, dans un cadre qui assure une concurrence équitable pour tous les membres de l’OMC, qu’ils soient en développement ou industrialisés.",
+      y1: "1982", y1p: "Début de la période racontée par les témoignages, parfois même avant.",
+      y2: "1994", y2p: "Création de l’OMC. Avec l’Acte final du Cycle d’Uruguay, l’accord historique de Marrakech, le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."
+    },
+    en: {
+      goalT: "The goal", goalP: "A trading system that promotes fair commercial relations, stimulates economic growth and supports sustainable development.",
+      chips: ["Fair trade relations", "Economic growth", "Sustainable development"],
+      meansT: "The means", meansP: "A transparent rules-based system and a formal mechanism for the settlement of disputes.",
+      resultT: "The result", resultP: "The WTO continues to reduce obstacles to trade and offers a level playing field for all Members, irrespective of their level of economic development.",
+      y1: "1982", y1p: "The period covered by the recollections starts here, sometimes even earlier.",
+      y2: "1994", y2p: "The creation of the WTO. With the adoption of the historic Marrakech Agreement at the conclusion of the Uruguay Round, developing and developed countries joined together in a shared commitment to an equitable world."
+    }
+  };
+  const TRAN = {
+    fr: {
+      name: "L’ambassadeur Trân Van Thinh Paul", sub: "Une contribution exceptionnelle",
+      p1: "Ce projet a commencé comme un documentaire pour capter la contribution exceptionnelle d’un homme, l’ambassadeur Trân Van Thinh Paul. Il est devenu un recueil d’entretiens de près de 40 ministres, ambassadeurs et négociateurs.",
+      p2: "Ambassadeur et Représentant permanent de la Communauté européenne à Genève de 1979 à 1994. À l’origine, ce projet se voulait un hommage à l’occasion de ses 80 ans.",
+      says: [["31350755", "David Hartridge", "relate l’importance des relations personnelles et professionnelles entre Arthur Dunkel et Paul Tran, et le rôle spécial que Paul Tran occupait tout au long du Cycle d’Uruguay."],
+             ["31948123", "Benny Berg Sorensen", "décrit comme membre clé de l’équipe de Paul Tran dans la négociation des textiles."]]
+    },
+    en: {
+      name: "Ambassador Trân Van Thinh Paul", sub: "An exceptional contribution",
+      p1: "This documentary project began as an effort to capture the exceptional contribution of one individual, Ambassador Trân Van Thinh Paul, who played an instrumental role in the Uruguay Round negotiations.",
+      p2: "Ambassador and Permanent Representative of the European Community in Geneva from 1979 to 1994. The project started as a tribute to him, through interviews of people who worked with him.",
+      says: [["31350755", "David Hartridge", "describes the importance of the personal and professional relationship between Arthur Dunkel and Paul Tran, and the special role Paul Tran played throughout the Uruguay Round."],
+             ["31948123", "Benny Berg Sorensen", "is described as a key member of Paul Tran's team in the textile negotiations."]]
+    }
+  };
+  const TRAN_ID = '31350676';
+
+  /* ---------- Pages ---------- */
+  const card = v => {
+    const i = V.indexOf(v), m = VM[v[0]];
+    return `<li class="card ${v[0] === TRAN_ID ? 'key' : ''}"><a href="${vlink(v[0])}"><div class="th" style="--h:${150 + (i * 14) % 110}"><span class="ini">${esc(initials(v[1]))}</span>${m ? `<img src="${vthumb(v[0])}" alt="" loading="lazy" onerror="this.remove()">` : ''}${m ? `<span class="dur">${dur(m[0])}</span>` : ''}</div><b>${esc(v[1])}</b><span class="ds" lang="fr">${esc(v[2])}</span></a></li>`;
+  };
+  const cards = items => items.length ? items.map(card).join('') : `<li class="empty">${esc(t.none)}</li>`;
+  let query = '';
+  const filtered = () => V.filter(v => !query || (v[1] + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
+
+  function viewHome() {
+    const h = HOME[lang], H = HERO[lang], B = BRIEF[lang], T = TRAN[lang], v0 = V[0];
+    return `
+    <section class="hero">
+      <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p></div>
+      <div>${player(v0[0], v0[1], true)}<p class="cap"><a href="${vlink(v0[0])}">${esc(v0[1])}</a></p></div>
+    </section>
+    <details class="full" id="full">
+      <summary><span id="fullLbl">${esc(t.readFull)}</span>${chev}</summary>
+      <div class="body">${h.p.map(p => `<p>${md(p)}</p>`).join('')}<p class="note">${esc(h.note)}</p></div>
+    </details>
+    <section class="brief" aria-labelledby="brief-h">
+      <h2 id="brief-h">${esc(t.briefTitle)}</h2>
+      <div class="trio">
+        <article class="step"><span class="ico">${icoGoal}</span><h3>${esc(B.goalT)}</h3><p>${esc(B.goalP)}</p><ul class="chips">${B.chips.map(c => `<li>${esc(c)}</li>`).join('')}</ul></article>
+        <article class="step"><span class="ico">${icoRules}</span><h3>${esc(B.meansT)}</h3><p>${esc(B.meansP)}</p></article>
+        <article class="step"><span class="ico">${icoResult}</span><h3>${esc(B.resultT)}</h3><p>${esc(B.resultP)}</p></article>
+      </div>
+      <div class="mile">
+        <div class="pt"><b>${esc(B.y1)}</b><p>${esc(B.y1p)}</p></div>
+        <div class="pt"><b>${esc(B.y2)}</b><p>${esc(B.y2p)}</p></div>
+      </div>
+    </section>
+    <section class="tran" aria-labelledby="tran-h">
+      <div>
+        <h2 id="tran-h">${esc(T.name)}</h2>
+        <p class="sub">${esc(T.sub)}</p>
+        <p>${esc(T.p1)}</p><p>${esc(T.p2)}</p>
+        <ul class="says">${T.says.map(s => `<li><a href="${vlink(s[0])}">${esc(s[1])}</a> ${esc(s[2])}</li>`).join('')}</ul>
+        <a class="btn" href="${vlink(TRAN_ID)}">${esc(t.tranCta)}</a>
+      </div>
+      <div>${player(TRAN_ID, 'Paul Trân', true)}</div>
+    </section>
+    <div class="index-head">
+      <h2>${esc(t.videosTitle)}</h2>
+      <div class="search"><label for="q">${esc(t.search)}</label><input id="q" type="search" value="" autocomplete="off"></div>
+    </div>
+    <p class="index-note">${esc(h.note)}</p>
+    <ul class="grid" id="grid">${cards(filtered())}</ul>`;
+  }
+  function viewVideo() {
+    const want = new URLSearchParams(location.search).get('video');
+    let i = V.findIndex(v => v[0] === want); if (i < 0) i = 0;
+    const v = V[i], prev = V[i - 1], next = V[i + 1];
+    document.title = `${v[1]} | ${document.title}`;
+    return `
+    <div class="video-grid">
+      <article class="video-main">
+        <div class="crumbs">
+          <a href="${LB}">${esc(t.back)}</a>
+          <div class="pn">
+            ${prev ? `<a href="${vlink(prev[0])}">${esc(t.prev)}</a>` : `<span>${esc(t.prev)}</span>`}
+            ${next ? `<a href="${vlink(next[0])}">${esc(t.next)}</a>` : `<span>${esc(t.next)}</span>`}
+          </div>
+        </div>
+        ${player(v[0], v[1], false)}
+        ${vimeoLink(v[0])}
+        <h1>${esc(v[1])}</h1>
+        <p class="desc" lang="fr">${esc(v[2])}</p>
+        ${v[3] ? `<p style="margin-top:14px"><a class="btn ghost" href="${esc(asset(v[3]))}" target="_blank" rel="noopener">${esc(t.translation)}</a></p>` : ''}
+        <p class="note">${esc(HOME[lang].note)}</p>
+      </article>
+      <nav class="side" aria-label="${esc(t.others)}">
+        <h2>${esc(t.others)}</h2>
+        <ul>${V.map(x => `<li><a href="${vlink(x[0])}" ${x[0] === v[0] ? 'aria-current="true"' : ''}>${esc(x[1])}</a></li>`).join('')}</ul>
+      </nav>
+    </div>`;
+  }
+  function viewAbout() {
+    const a = ABOUT[lang];
+    return `<div class="prose">${a.p.map((p, i) => p === '@pdf' ? `<a class="btn ghost" href="${esc(asset(a.pdf))}" target="_blank" rel="noopener">${esc(t.questionsPdf)}</a>` : `<p class="${i === 0 ? 'first' : ''}">${md(p)}</p>`).join('')}</div>`;
+  }
+  function viewPortfolio() {
+    return `<div class="gallery">${PORTFOLIO.map((p, i) => {
+      const small = 'portfolio_images/' + p[3] + '_small.jpg';
+      return `<figure class="tile"><button type="button" data-i="${i}" aria-label="${esc(p[0] || t.photo + ' ' + (i + 1))}"><div class="ph" style="--h:${p[2]}"><img src="${esc(asset(small))}" alt="${esc(p[0] || t.photo + ' ' + (i + 1))}" loading="lazy" onerror="${imgFallback(small)}"></div></button>${p[0] ? `<figcaption>${esc(p[0])}</figcaption>` : ''}</figure>`;
+    }).join('')}</div>
+    <div class="lightbox" id="lb" hidden role="dialog" aria-modal="true" aria-label="${esc(t.photo)}">
+      <div class="lb-box">
+        <div class="lb-img"><img id="lbImg" alt=""></div>
+        <div class="lb-cap" id="lbCap"></div>
+        <div class="lb-bar"><button type="button" id="lbPrev" aria-label="${esc(t.prev)}">‹</button><button type="button" id="lbClose" aria-label="${esc(t.close)}">×</button><button type="button" id="lbNext" aria-label="${esc(t.next)}">›</button></div>
+      </div>
+    </div>`;
+  }
+  function viewContact() {
+    const c = CONTACT[lang];
+    return `<form class="form" id="form" novalidate>
+      <label for="f1">${esc(c.name)}<input id="f1" type="text" required></label>
+      <label for="f2">${esc(c.email)}<input id="f2" type="email" required></label>
+      <label for="f3">${esc(c.subject)}<input id="f3" type="text"></label>
+      <label for="f4">${esc(c.msg)}<textarea id="f4"></textarea></label>
+      <button type="submit">${esc(t.send)}</button>
+      <div class="form-msg" id="fm" hidden></div>
+    </form>`;
+  }
+  function viewLinks() {
+    return `<ul class="links">${LINKS[lang].map((l, i) => `<li>${i === 1 ? wtoLogo() : ''}<span class="lb">${esc(l[0])}</span><a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[1])}</a></li>`).join('')}</ul>`;
+  }
+  function viewThanks() {
+    const T = THANKS[lang];
+    const list = arr => `<ul class="plain">${arr.map(x => `<li>${md(x)}</li>`).join('')}</ul>`;
+    return `
+    <p class="thanks-intro">${esc(T.intro)}</p>
+    <nav class="thanks-nav" aria-label="${esc(UI[lang].nav[6][1])}">${T.tabs.map(x => `<a href="#${x[0]}">${esc(x[1])}</a>`).join('')}</nav>
+    <section class="sec" id="donateurs"><h2>${esc(T.tabs[0][1])}</h2>
+      <p class="lead">${esc(T.donorsLead)}</p>
+      <ul class="names">${DONORS.map(d => `<li><strong>${esc(d[0])}</strong>, ${esc(d[1])}</li>`).join('')}</ul>
+      <p class="lead">${md(T.orgs)}</p>${wtoLogo()}</section>
+    <section class="sec" id="benevoles"><h2>${esc(T.tabs[1][1])}</h2><p class="lead">${esc(T.volLead)}</p>${list(T.vol)}</section>
+    <section class="sec" id="interviews"><h2>${esc(T.tabs[2][1])}</h2><p class="lead">${esc(T.intLead)}</p>${list(T.int)}</section>
+    <section class="sec" id="techniciens"><h2>${esc(T.tabs[3][1])}</h2>
+      <p class="lead">${md(T.techLead)}</p>${list(T.tech)}
+      <p class="lead">${md(T.camLead)}</p>${list(T.cam)}</section>`;
+  }
+
+  /* ---------- En-tête et rendu ---------- */
+  function renderHead() {
+    const other = OTHER + PATHS[ROUTE];
+    $('mark').href = LB;
+    $('nav').innerHTML = NAV_KEYS.map((k, i) => `<a href="${LB + PATHS[k]}" ${k === ROUTE ? 'aria-current="page"' : ''}>${esc(t.nav[i][1])}</a>`).join('');
+    $('menuBtn').textContent = t.menu;
+    $('langFr').href = lang === 'fr' ? '' : other + location.search;
+    $('langEn').href = lang === 'en' ? '' : other + location.search;
+    $('langFr').setAttribute('aria-current', String(lang === 'fr'));
+    $('langEn').setAttribute('aria-current', String(lang === 'en'));
+    if (lang === 'fr') $('langFr').removeAttribute('href'); else $('langEn').removeAttribute('href');
+  }
+  const VIEWS = { accueil: viewHome, videos: viewVideo, 'a-propos': viewAbout, portfolio: viewPortfolio, contact: viewContact, liens: viewLinks, remerciements: viewThanks };
+  renderHead();
+  $('view').innerHTML = VIEWS[ROUTE]();
+
+  /* ---------- Interactions ---------- */
+  document.querySelectorAll('.player[data-id] .ring').forEach(b => b.addEventListener('click', () => {
+    const p = b.closest('.player');
+    p.classList.add('live');
+    p.innerHTML = iframe(p.dataset.id, p.dataset.title, true);
+  }));
+  const q = $('q');
+  if (q) q.addEventListener('input', () => { query = q.value; $('grid').innerHTML = cards(filtered()); });
+  const full = $('full');
+  if (full) full.addEventListener('toggle', () => { $('fullLbl').textContent = full.open ? t.foldFull : t.readFull; });
+  $('menuBtn').addEventListener('click', () => { const o = $('nav').classList.toggle('open'); $('menuBtn').setAttribute('aria-expanded', String(o)); });
+
+  const form = $('form');
+  if (form) form.addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = $('fm');
+    if (!form.checkValidity() || !$('f1').value.trim() || !$('f2').value.trim()) { msg.textContent = t.formInvalid; msg.hidden = false; return; }
+    if (!CONFIG.contactEmail) { msg.textContent = t.formUnset; msg.hidden = false; return; }
+    const body = `${CONTACT[lang].name}: ${$('f1').value}\n${CONTACT[lang].email}: ${$('f2').value}\n\n${$('f4').value}`;
+    location.href = `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent($('f3').value || 'WTOcreation')}&body=${encodeURIComponent(body)}`;
+    msg.textContent = t.formOpened; msg.hidden = false;
+  });
+
+  /* Visionneuse du portfolio */
+  const lb = $('lb');
+  if (lb) {
+    let cur = 0;
+    const open = i => {
+      cur = (i + PORTFOLIO.length) % PORTFOLIO.length;
+      const p = PORTFOLIO[cur], big = 'portfolio_images/' + p[3] + '.jpg';
+      const im = $('lbImg'); im.onerror = () => { im.onerror = null; im.src = CONFIG.oldSite + big; };
+      im.src = asset(big); im.alt = p[0] || t.photo + ' ' + (cur + 1);
+      $('lbCap').innerHTML = esc(p[0]) + (p[1] ? ` <a href="${esc(asset('pdf/Dec_15_1993_Green_Room_FR.pdf'))}" target="_blank" rel="noopener">${esc(t.more)}</a>` : '');
+      lb.hidden = false; $('lbClose').focus();
+    };
+    document.querySelectorAll('.tile button').forEach(b => b.addEventListener('click', () => open(+b.dataset.i)));
+    $('lbPrev').onclick = () => open(cur - 1);
+    $('lbNext').onclick = () => open(cur + 1);
+    $('lbClose').onclick = () => { lb.hidden = true; };
+    lb.addEventListener('click', e => { if (e.target === lb) lb.hidden = true; });
+    document.addEventListener('keydown', e => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') lb.hidden = true;
+      if (e.key === 'ArrowLeft') open(cur - 1);
+      if (e.key === 'ArrowRight') open(cur + 1);
+    });
+  }
+
+  /* Ancre dans la page des remerciements */
+  if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+})();
