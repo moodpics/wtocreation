@@ -189,7 +189,7 @@
       </article>
       <nav class="side" aria-label="${esc(t.others)}">
         <h2>${esc(t.others)}</h2>
-        <ul>${V.map(x => `<li><a href="${vlink(x[0])}" ${x[0] === v[0] ? 'aria-current="true"' : ''}>${esc(x[1])}</a></li>`).join('')}</ul>
+        <ul>${V.map(x => `<li><a href="${vlink(x[0])}" ${x[0] === v[0] ? 'aria-current="true"' : ''}>${esc(label(x))}</a></li>`).join('')}</ul>
       </nav>
     </div>`;
   }
