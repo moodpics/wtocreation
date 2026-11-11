@@ -52,11 +52,11 @@
   const HERO = {
     fr: {
       lead: "Ils ont créé l’OMC. Ils racontent.",
-      sub: "L’Organisation mondiale du commerce est née de l’accord de Marrakech, signé en 1994 à l’issue du Cycle d’Uruguay, et en activité depuis le 1er janvier 1995. Près de 40 ministres, ambassadeurs et négociateurs racontent, avec leurs propres mots, comment elle a été créée, de 1982 à 1994."
+      sub: "L’Organisation mondiale du commerce est née en 1994, avec l’accord de Marrakech qui a conclu le Cycle d’Uruguay. Près de 40 ministres, ambassadeurs et négociateurs racontent, avec leurs propres mots, comment elle a été créée, de 1982 à 1994."
     },
     en: {
       lead: "They created the WTO. They tell the story.",
-      sub: "The World Trade Organization was born from the Marrakech Agreement, signed in 1994 at the end of the Uruguay Round, and has been operating since 1 January 1995. Nearly 40 ministers, ambassadors and negotiators tell, in their own words, how it was created, from 1982 to 1994."
+      sub: "The World Trade Organization was born in 1994, with the Marrakech Agreement that concluded the Uruguay Round. Nearly 40 ministers, ambassadors and negotiators tell, in their own words, how it was created, from 1982 to 1994."
     }
   };
   const BRIDGE = {
