@@ -31,6 +31,7 @@
   const vthumb = id => VM[id] ? `https://i.vimeocdn.com/video/${VM[id][1]}-d_640x360?&r=pad&region=us` : '';
   const vlink = id => `${LB}videos/?video=${id}`;
   const dur = s => { const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; };
+  const label = v => COUNTRY[v[0]] ? `${v[1]} (${COUNTRY[v[0]][lang === 'en' ? 1 : 0]})` : v[1];
   const initials = n => n.replace(/\(.*\)/, '').replace(/,.*/, '').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('');
   const vimeoSrc = (id, auto) => `https://player.vimeo.com/video/${id}?dnt=1${auto ? '&autoplay=1' : ''}`;
   const iframe = (id, title, auto) => `<iframe src="${vimeoSrc(id, auto)}" title="${esc(title)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
@@ -109,11 +110,11 @@
   /* ---------- Pages ---------- */
   const card = v => {
     const i = V.indexOf(v), m = VM[v[0]];
-    return `<li class="card ${v[0] === TRAN_ID ? 'key' : ''}"><a href="${vlink(v[0])}"><div class="th" style="--h:${150 + (i * 14) % 110}"><span class="ini">${esc(initials(v[1]))}</span>${m ? `<img src="${vthumb(v[0])}" alt="" loading="lazy" onerror="this.remove()">` : ''}${m ? `<span class="dur">${dur(m[0])}</span>` : ''}</div><b>${esc(v[1])}</b><span class="ds" lang="fr">${esc(v[2])}</span></a></li>`;
+    return `<li class="card ${v[0] === TRAN_ID ? 'key' : ''}"><a href="${vlink(v[0])}"><div class="th" style="--h:${150 + (i * 14) % 110}"><span class="ini">${esc(initials(v[1]))}</span>${m ? `<img src="${vthumb(v[0])}" alt="" loading="lazy" onerror="this.remove()">` : ''}${m ? `<span class="dur">${dur(m[0])}</span>` : ''}</div><b>${esc(label(v))}</b><span class="ds" lang="fr">${esc(v[2])}</span></a></li>`;
   };
   const cards = items => items.length ? items.map(card).join('') : `<li class="empty">${esc(t.none)}</li>`;
   let query = '';
-  const filtered = () => V.filter(v => !query || (v[1] + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
+  const filtered = () => V.filter(v => !query || (label(v) + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
   function viewHome() {
     const h = HOME[lang], H = HERO[lang], G = BRIDGE[lang], B = BRIEF[lang], T = TRAN[lang], v0 = V[0];
@@ -155,7 +156,7 @@
         <ul class="says">${T.says.map(s => `<li><a href="${vlink(s[0])}">${esc(s[1])}</a> ${esc(s[2])}</li>`).join('')}</ul>
         <a class="btn" href="${vlink(TRAN_ID)}">${esc(t.tranCta)}</a>
       </div>
-      <div>${player(TRAN_ID, 'Paul Trân Van Thinh', true)}</div>
+      <div>${player(TRAN_ID, label(V.find(x => x[0] === TRAN_ID)), true)}</div>
     </section>
     <div class="index-head">
       <h2>${esc(t.videosTitle)}</h2>
@@ -168,7 +169,7 @@
     const want = new URLSearchParams(location.search).get('video');
     let i = V.findIndex(v => v[0] === want); if (i < 0) i = 0;
     const v = V[i], prev = V[i - 1], next = V[i + 1];
-    document.title = `${v[1]} | ${document.title}`;
+    document.title = `${label(v)} | ${document.title}`;
     return `
     <div class="video-grid">
       <article class="video-main">
@@ -179,9 +180,9 @@
             ${next ? `<a href="${vlink(next[0])}">${esc(t.next)}</a>` : `<span>${esc(t.next)}</span>`}
           </div>
         </div>
-        ${player(v[0], v[1], false)}
+        ${player(v[0], label(v), false)}
         ${vimeoLink(v[0])}
-        <h1>${esc(v[1])}</h1>
+        <h1>${esc(label(v))}</h1>
         <p class="desc" lang="${lang === 'en' && DESC_EN[v[0]] ? 'en' : 'fr'}">${esc(lang === 'en' && DESC_EN[v[0]] ? DESC_EN[v[0]] : v[2])}</p>
         ${v[3] ? `<p style="margin-top:14px"><a class="btn ghost" href="${esc(asset(v[3]))}" target="_blank" rel="noopener">${esc(t.translation)}</a></p>` : ''}
         <p class="note">${esc(HOME[lang].note)}</p>
