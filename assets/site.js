@@ -52,11 +52,13 @@
   const HERO = {
     fr: {
       lead: "Ils ont créé l’OMC. Ils racontent.",
-      sub: "L’Organisation mondiale du commerce est née en 1994, avec l’accord de Marrakech qui a conclu le Cycle d’Uruguay. Près de 40 ministres, ambassadeurs et négociateurs racontent, avec leurs propres mots, comment elle a été créée, de 1982 à 1994."
+      sub: "Après près de huit ans de négociations, le Cycle d’Uruguay s’est achevé en 1994 par l’accord de Marrakech : l’Organisation mondiale du commerce (OMC) était née.",
+      sub2: "Près de 40 ministres, ambassadeurs et négociateurs racontent, avec leurs propres mots, comment elle a été créée, de 1982 à 1994."
     },
     en: {
       lead: "They created the WTO. They tell the story.",
-      sub: "The World Trade Organization was born in 1994, with the Marrakech Agreement that concluded the Uruguay Round. Nearly 40 ministers, ambassadors and negotiators tell, in their own words, how it was created, from 1982 to 1994."
+      sub: "After nearly eight years of negotiations, the Uruguay Round ended in 1994 with the Marrakech Agreement: the World Trade Organization (WTO) was born.",
+      sub2: "Nearly 40 ministers, ambassadors and negotiators tell, in their own words, how it was created, from 1982 to 1994."
     }
   };
   const BRIDGE = {
@@ -86,7 +88,7 @@
         ["Novembre 1992", "Washington (États-Unis)", "Accord de Blair House : les États-Unis et la Communauté européenne règlent l’essentiel de leur différend sur l’agriculture."],
         ["Juillet 1993", "Tokyo (Japon)", "Au sommet du G7, le « Quad » (États-Unis, Union européenne, Japon, Canada) annonce une percée sur l’accès aux marchés."],
         ["Décembre 1993", "Genève (Suisse)", "Fin de la plupart des négociations ; quelques discussions sur l’accès aux marchés se poursuivent."],
-        ["Avril 1994", "Marrakech (Maroc)", "Les ministres des 124 gouvernements et des Communautés européennes participants signent l’Acte final reprenant les résultats des négociations commerciales multilatérales du Cycle d’Uruguay : c’est l’accord de Marrakech, qui crée l’OMC. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
+        ["Avril 1994", "Marrakech (Maroc)", "Accord de Marrakech : l’OMC est née. Les ministres des 124 gouvernements et des Communautés européennes participants signent l’Acte final reprenant les résultats des négociations commerciales multilatérales du Cycle d’Uruguay. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
       ]
     },
     en: {
@@ -103,7 +105,7 @@
         ["November 1992", "Washington (United States)", "The Blair House accord: the United States and the European Community settle most of their differences on agriculture."],
         ["July 1993", "Tokyo (Japan)", "At the G7 summit, the “Quad” (United States, European Union, Japan, Canada) announces a breakthrough on market access."],
         ["December 1993", "Geneva (Switzerland)", "Most negotiations end; some market-access talks continue."],
-        ["April 1994", "Marrakech (Morocco)", "Ministers of the 124 participating governments and the European Communities sign the Final Act Embodying the Results of the Uruguay Round of Multilateral Trade Negotiations: the Marrakech Agreement, which creates the WTO. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
+        ["April 1994", "Marrakech (Morocco)", "Marrakech Agreement: the WTO is born. Ministers of the 124 participating governments and the European Communities sign the Final Act Embodying the Results of the Uruguay Round of Multilateral Trade Negotiations. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
       ]
     }
   };
@@ -135,8 +137,8 @@
   const filtered = () => V.filter(v => !query || (label(v) + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
   const URU_T = {
-    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", n1: "Accord de Marrakech", s1: "Création · Naissance de l’OMC", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
-    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", n1: "Marrakech Agreement", s1: "Creation · Birth of the WTO", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
+    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", n1: "Accord de Marrakech", s1: "Création · L’OMC est née", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
+    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", n1: "Marrakech Agreement", s1: "Creation · The WTO is born", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
   };
   const MONTHS_FR = { janvier: 'janv.', février: 'févr.', mars: 'mars', avril: 'avr.', mai: 'mai', juin: 'juin', juillet: 'juil.', août: 'août', septembre: 'sept.', octobre: 'oct.', novembre: 'nov.', décembre: 'déc.' };
   const dateParts = d => { const w = d.split(' '); const y = w.pop(); const m = w.join(' '); return { y, m, abbr: lang === 'fr' ? (MONTHS_FR[m.toLowerCase()] || m) : m.slice(0, 3) }; };
@@ -168,7 +170,7 @@
     <div class="masthead"><a href="https://www.wto.org/" target="_blank" rel="noopener" aria-label="World Trade Organization"><img src="${BASE}assets/img/wto-logo-light.png" alt="World Trade Organization" width="260" height="77"></a>
       <p class="meta"><span>${esc(t.mhA)}</span><i></i><span>1982 — 1994</span><i></i><span>${esc(t.mhB)}</span></p></div>
     <section class="hero">
-      <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p></div>
+      <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p><p class="sub sub2">${esc(H.sub2)}</p></div>
       <div>${player(v0[0], v0[1], true)}<p class="cap"><a href="${vlink(v0[0])}">${esc(v0[1])}</a></p></div>
     </section>
     <section class="bridge" aria-labelledby="bridge-h"><p class="kicker">${esc(t.kA)}</p>
