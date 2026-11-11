@@ -137,8 +137,8 @@
   const filtered = () => V.filter(v => !query || (label(v) + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
   const URU_T = {
-    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", n1: "Accord de Marrakech", s1: "Création · L’OMC est née", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
-    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", n1: "Marrakech Agreement", s1: "Creation · The WTO is born", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
+    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", n1: "Accord de Marrakech", s1: "L’OMC est née", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
+    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", n1: "Marrakech Agreement", s1: "The WTO is born", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
   };
   const MONTHS_FR = { janvier: 'janv.', février: 'févr.', mars: 'mars', avril: 'avr.', mai: 'mai', juin: 'juin', juillet: 'juil.', août: 'août', septembre: 'sept.', octobre: 'oct.', novembre: 'nov.', décembre: 'déc.' };
   const dateParts = d => { const w = d.split(' '); const y = w.pop(); const m = w.join(' '); return { y, m, abbr: lang === 'fr' ? (MONTHS_FR[m.toLowerCase()] || m) : m.slice(0, 3) }; };
