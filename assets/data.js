@@ -74,7 +74,7 @@ const DESC_EN = {
  "30495085": "(Vietnam) Deputy Prime Minister (1997–2002), also Minister of Foreign Affairs (in office in 1995 and in 1999).",
  "31598540": "Hamid Mamdouh, Counsellor at the Egyptian Mission to the GATT (1985–1989), Legal Adviser to the GATT negotiating service, Secretary of the Council for Trade in Services (1995–2001), Director of the WTO Services and Investment Division (2001–2017).",
  "31681853": "Åke Linden, GATT Secretariat (1961–1994), Director of the Legal Affairs Office (1983–1985), Special Adviser to the Director-General from 1989 to 1993, Assistant to the Director-General (1993–1994).",
- "31935884": "Official of the European Commission (1965–2003), Directorate-General for Trade.",
+ "31935884": "Official of the European Commission (1965–2003), Directorate-General for Trade. Deceased.",
  "31948123": "Benny Berg Sorensen: official of the European Commission, Directorate-General for Trade (1977–2009). Key member of Paul Tran's team in the textiles negotiations.",
  "33176624": "Ambassador of France, including to the United Nations in Geneva between the Tokyo Round and the preparatory work for the Uruguay Round; author of Indignez-vous! (Time for Outrage!, 2010). Died in February 2013.",
 };
@@ -118,7 +118,7 @@ const V = [
  ["30495085","Nguyên Manh Cam","(Vietnam) Vice-Premier ministre (1997-2002), également ministre des Affaires étrangères (en fonction en 1995 comme en 1999).","pdf/30495085.pdf"],
  ["31598540","Hamid Mamdouh","Hamid Mamdouh, conseiller à la Mission d'Égypte auprès du GATT (1985-1989), conseiller juridique auprès du service de négociation du GATT, secrétaire du Conseil du commerce des services (1995-2001), directeur de la Division des services et de l'investissement de l'OMC (2001-2017)."],
  ["31681853","Åke Linden","Åke Linden, Secrétariat du GATT (1961-1994), directeur du Bureau des affaires juridiques (1983-1985), conseiller spécial du Directeur général de 1989 à 1993, assistant du Directeur général (1993-1994)."],
- ["31935884","Paul Ramadier","fonctionnaire de la Commission européenne (1965-2003), Direction Générale du Commerce"],
+ ["31935884","Paul Ramadier","Fonctionnaire de la Commission européenne (1965-2003), Direction Générale du Commerce. Décédé."],
  ["31948123","Benny Berg Sorensen","Benny Berg Sorensen: fonctionnaire de la Commission européenne, Direction Générale du Commerce (1977-2009). Membre clé de l'équipe de Paul Tran dans la négociation des textiles."],
  ["33176624","Stéphane Hessel","Ambassadeur de France, notamment auprès des Nations Unies à Genève entre le cycle de Tokyo et les travaux préparatoires de l'Uruguay Round ; auteur d'Indignez-vous ! (2010). Décédé en février 2013."]
 ];
