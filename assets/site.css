@@ -396,13 +396,23 @@ ul { list-style: none; }
 }
 
 /* Chronologie interactive du Cycle d'Uruguay : 1986 → 1994 */
-.uru { margin-top: 48px; }
+.uru { position: relative; margin-top: 48px; margin-bottom: 5.5rem; }
 .uru-row { display: flex; align-items: flex-start; }
 .uru-end { flex: none; background: none; border: 0; padding: 0; color: inherit; font: inherit; text-align: left; cursor: default; }
 .uru-end.right { text-align: right; }
 .uru-end b { display: block; font-family: var(--serif); font-size: 2.5rem; font-weight: 400; line-height: 1; }
 .uru-end span { display: block; margin-top: 8px; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
-.uru-track { position: relative; flex: 1; min-width: 0; margin: 0 20px; }
+.uru-end small { display: block; margin-top: 8px; max-width: 15rem; font-size: .8125rem; line-height: 1.35; color: var(--soft); }
+.uru-end.right small { margin-left: auto; }
+.uru-end .uru-name { display: block; margin-top: 10px; font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; color: var(--tx); font-weight: 400; }
+.uru-end .uru-name + small { margin-top: 4px; }
+.uru-end.on b { }
+.uru.open .uru-end.on b, .uru:focus-within .uru-end.on b { color: var(--amber); }
+@media (hover: hover) { .uru:hover .uru-end.on b { color: var(--amber); } }
+/* replié : 1994 tout près de 1986 ; ouvert : la ligne s'étire */
+.uru-track { position: relative; flex: 1; min-width: 0; margin: 0 20px; max-width: 11rem; transition: max-width .75s cubic-bezier(.2,.8,.2,1); }
+.uru.open .uru-track, .uru:focus-within .uru-track { max-width: 100%; }
+@media (hover: hover) { .uru:hover .uru-track { max-width: 100%; } }
 .uru-line { position: absolute; left: 0; right: 0; top: 1.25rem; height: 28px; transform: translateY(-50%); background: none; border: 0; padding: 0; cursor: pointer; z-index: 1; }
 .uru-line::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--amber); opacity: .45; transition: opacity .4s; }
 .uru-line:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
@@ -414,72 +424,18 @@ ul { list-style: none; }
 .uru-i .uru-node::before { content: ""; position: absolute; top: calc(1.25rem - 4px); left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 3px rgba(226,163,59,.18); transition: transform .25s, box-shadow .25s; }
 .uru-i .y { display: block; font-family: var(--serif); font-size: 1.125rem; line-height: 1.1; color: var(--soft); }
 .uru-i .mo { display: block; margin-top: 2px; font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+.uru-i .ci { display: block; margin-top: 3px; font-size: .6875rem; line-height: 1.2; color: var(--soft); opacity: .9; }
 .uru-i .uru-node:hover::before, .uru-i .uru-node:focus-visible::before, .uru-i .uru-node.on::before { transform: scale(1.5); box-shadow: 0 0 0 5px rgba(226,163,59,.25); }
 .uru-i .uru-node.on .y { color: var(--tx); }
 .uru-node:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
-.uru.open .uru-end.on b, .uru:focus-within .uru-end.on b { color: var(--amber); }
-@media (hover: hover) { .uru:hover .uru-end.on b { color: var(--amber); } }
-.uru-panel { margin-top: 28px; min-height: 8.5rem; padding: 18px 22px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; }
-.uru-hint { margin: 0; color: var(--mut); font-size: .9375rem; }
-.uru-detail { display: none; }
-.uru-when { margin: 0 0 6px; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
-.uru-when b { font-weight: 600; }
-.uru-what { margin: 0; color: var(--soft); max-width: 70ch; }
-/* état ouvert : clic/tap, focus clavier, ou survol (appareils avec souris) */
 .uru.open .uru-i, .uru:focus-within .uru-i { opacity: 1; visibility: visible; transform: none; filter: none; transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0s; }
 .uru.open .uru-line::before, .uru:focus-within .uru-line::before { opacity: 1; }
-.uru.open .uru-hint, .uru:focus-within .uru-hint { display: none; }
-.uru.open .uru-detail, .uru:focus-within .uru-detail { display: block; }
 @media (hover: hover) {
   .uru:hover .uru-i { opacity: 1; visibility: visible; transform: none; filter: none; transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0s; }
   .uru:hover .uru-line::before { opacity: 1; }
-  .uru:hover .uru-hint { display: none; }
-  .uru:hover .uru-detail { display: block; }
 }
-@media (max-width: 720px) {
-  .uru-row { flex-direction: column; }
-  .uru-end.right { text-align: left; }
-  .uru-end b { font-size: 2.25rem; }
-  .uru-track { margin: 14px 0 14px 0; min-height: 2.5rem; max-height: 2.5rem; overflow: hidden; transition: max-height .6s cubic-bezier(.2,.8,.2,1); }
-  .uru.open .uru-track, .uru:focus-within .uru-track { max-height: 30rem; }
-  .uru-line { left: 6px; right: auto; top: 0; bottom: 0; width: 28px; height: auto; transform: none; }
-  .uru-line::before { left: 6px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--amber); }
-  .uru-mid { flex-direction: column; gap: 4px; padding-left: 0; }
-  .uru-i { text-align: left; transform: translateY(-14px); }
-  .uru-i .uru-node { padding: 6px 0 6px 40px; }
-  .uru-i .uru-node::before { top: 50%; left: 6px; margin-top: -4px; margin-left: 0; }
-  .uru-i .y, .uru-i .mo { display: inline; }
-  .uru-i .mo { margin-left: 8px; }
-}
-@media (max-width: 720px) and (hover: hover) { .uru:hover .uru-track { max-height: 30rem; } }
-@media (prefers-reduced-motion: reduce) {
-  .uru-i { transform: none !important; filter: none !important; transition: opacity .2s linear !important; transition-delay: 0s !important; }
-  .uru-track { transition: none; }
-}
-.uru-end small { display: block; margin-top: 8px; max-width: 15rem; font-size: .8125rem; line-height: 1.35; color: var(--soft); }
-.uru-end.right small { margin-left: auto; }
-@media (max-width: 720px) { .uru-end.right small { margin-left: 0; } .uru-end small { max-width: 22rem; } }
-/* Texte sous la souris, centré sur le point survolé */
-.uru-end .uru-name { display: block; margin-top: 10px; font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; color: var(--tx); font-weight: 400; }
-.uru-end .uru-name + small { margin-top: 4px; }
-.uru-panel { position: relative; min-height: 9.5rem; margin-top: 22px; padding: 0; background: none; border: 0; }
-.uru-hint { padding: 18px 22px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; }
-.uru-detail { position: absolute; top: 0; left: 0; width: min(28rem, 100%); padding: 16px 20px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; box-shadow: 0 14px 40px -20px rgba(0,0,0,.6); transition: left .3s cubic-bezier(.2,.8,.2,1); }
-.uru-detail::before { content: ""; position: absolute; top: -6px; left: var(--ax, 50%); width: 10px; height: 10px; margin-left: -5px; background: var(--surf); border-left: 1px solid var(--ln); border-top: 1px solid var(--ln); transform: rotate(45deg); transition: left .3s cubic-bezier(.2,.8,.2,1); }
-@media (max-width: 720px) {
-  .uru-panel { min-height: 0; }
-  .uru-detail { position: static; width: auto; }
-  .uru-detail::before { display: none; }
-}
-@media (prefers-reduced-motion: reduce) { .uru-detail, .uru-detail::before { transition: none; } }
-/* Replié : 1994 tout près de 1986, une fausse souris invite à survoler ; ouvert : la ligne s'étire */
-.uru { margin-bottom: 3.5rem; }
-.uru-track { max-width: 11rem; transition: max-width .75s cubic-bezier(.2,.8,.2,1); }
-.uru.open .uru-track, .uru:focus-within .uru-track { max-width: 100%; }
-@media (hover: hover) { .uru:hover .uru-track { max-width: 100%; } }
-.uru-hint { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; background: none; }
-.uru-panel { height: 0; min-height: 0; margin-top: 22px; }
-.uru-detail { z-index: 5; }
+/* consigne : une fausse souris qui parcourt la ligne */
+.uru-hint { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .uru-cursor { position: absolute; left: 2%; top: 1.25rem; width: 22px; height: 22px; margin: -3px 0 0 -4px; pointer-events: none; z-index: 2; opacity: 0;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,.55)); animation: uruMove 5.5s cubic-bezier(.4,0,.2,1) infinite; }
 .uru-ring { position: absolute; left: -2px; top: -3px; width: 12px; height: 12px; border: 1px solid var(--amber); border-radius: 50%; opacity: 0; animation: uruRing 5.5s ease-out infinite; }
@@ -493,30 +449,62 @@ ul { list-style: none; }
   88%  { transform: scale(1); opacity: .95; }
   100% { left: 100%; top: calc(1.25rem + 16px); opacity: 0; }
 }
-@keyframes uruRing {
-  0%, 80% { opacity: 0; transform: scale(.4); }
-  84% { opacity: .9; transform: scale(.7); }
-  100% { opacity: 0; transform: scale(2.6); }
+@keyframes uruMoveV {
+  0%   { top: 0; opacity: 0; }
+  15%  { opacity: .95; }
+  70%  { top: 1.6rem; transform: scale(1); opacity: .95; }
+  76%  { transform: scale(.86); }
+  82%  { transform: scale(1); }
+  100% { top: 2.1rem; opacity: 0; }
 }
+@keyframes uruRing { 0%, 80% { opacity: 0; transform: scale(.4); } 84% { opacity: .9; transform: scale(.7); } 100% { opacity: 0; transform: scale(2.6); } }
 .uru.open .uru-cursor, .uru:focus-within .uru-cursor { display: none; }
 @media (hover: hover) { .uru:hover .uru-cursor { display: none; } }
-@media (max-width: 720px) {
-  .uru-track { max-width: none; }
-  .uru-panel { height: auto; }
+/* texte : encadré sous la souris (large) */
+.uru-panel { position: relative; height: 0; margin-top: 22px; }
+.uru-detail { display: none; position: absolute; top: 0; left: 0; z-index: 5; width: min(28rem, 100%); padding: 16px 20px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; box-shadow: 0 14px 40px -20px rgba(0,0,0,.6); transition: left .3s cubic-bezier(.2,.8,.2,1), top .3s cubic-bezier(.2,.8,.2,1); }
+.uru-detail::before { content: ""; position: absolute; top: -6px; left: var(--ax, 50%); width: 10px; height: 10px; margin-left: -5px; background: var(--surf); border-left: 1px solid var(--ln); border-top: 1px solid var(--ln); transform: rotate(45deg); transition: left .3s cubic-bezier(.2,.8,.2,1); }
+.uru.open .uru-detail, .uru:focus-within .uru-detail { display: block; }
+@media (hover: hover) { .uru:hover .uru-detail { display: block; } }
+.uru-when { margin: 0 0 6px; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.uru-when b { font-weight: 600; }
+.uru-what { margin: 0; color: var(--soft); max-width: 70ch; }
+/* fenêtre étroite : la frise passe à la verticale */
+@media (max-width: 900px) {
   .uru { margin-bottom: 2rem; }
+  .uru-row { flex-direction: column; }
+  .uru-end.right { text-align: left; }
+  .uru-end.right small { margin-left: 0; }
+  .uru-end b { font-size: 2.25rem; }
+  .uru-end small { max-width: 22rem; }
+  .uru-track { max-width: none; margin: 14px 0; min-height: 2.5rem; max-height: 2.5rem; overflow: hidden; transition: max-height .6s cubic-bezier(.2,.8,.2,1); }
+  .uru.open .uru-track, .uru:focus-within .uru-track { max-height: 30rem; }
+  @media (hover: hover) { .uru:hover .uru-track { max-height: 30rem; } }
+  .uru-line { left: 6px; right: auto; top: 0; bottom: 0; width: 28px; height: auto; transform: none; }
+  .uru-line::before { left: 6px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--amber); }
+  .uru-mid { flex-direction: column; gap: 4px; }
+  .uru-i { flex: none; text-align: left; transform: translateY(-14px); }
+  .uru-i .uru-node { padding: 6px 0 6px 40px; text-align: left; }
+  .uru-i .uru-node::before { top: 50%; left: 6px; margin-top: -4px; margin-left: 0; }
+  .uru-i .y, .uru-i .mo, .uru-i .ci { display: inline; }
+  .uru-i .mo { margin-left: 8px; }
+  .uru-i .ci { margin-left: 10px; font-size: .75rem; }
   .uru-cursor { left: 14px; animation-name: uruMoveV; }
-  @keyframes uruMoveV {
-    0%   { top: 0; opacity: 0; }
-    15%  { opacity: .95; }
-    70%  { top: 1.6rem; transform: scale(1); opacity: .95; }
-    76%  { transform: scale(.86); }
-    82%  { transform: scale(1); }
-    100% { top: 2.1rem; opacity: 0; }
-  }
+  /* petit écran : texte sous la frise */
+  .uru-panel { height: auto; margin-top: 18px; }
+  .uru-detail { position: static; width: auto; }
+  .uru-detail::before { display: none; }
+}
+/* fenêtre moyenne : texte sur le côté, à la hauteur de la date survolée */
+@media (min-width: 561px) and (max-width: 900px) {
+  .uru-panel { position: absolute; top: 0; bottom: 0; left: 17rem; right: 0; height: auto; margin: 0; }
+  .uru-detail { position: absolute; top: 0; left: 0; width: 100%; max-width: 26rem; }
+  .uru-detail::before { display: block; top: calc(var(--ay, 28px) - 5px); left: -6px; margin: 0; border-top: 0; border-left: 1px solid var(--ln); border-bottom: 1px solid var(--ln); transform: rotate(45deg); transition: top .3s cubic-bezier(.2,.8,.2,1); }
 }
 @media (prefers-reduced-motion: reduce) {
   .uru-track { transition: none; }
+  .uru-detail, .uru-detail::before { transition: none; }
   .uru-cursor { animation: none; left: 45%; opacity: .9; }
   .uru-ring { animation: none; }
+  .uru-i { transform: none !important; filter: none !important; transition: opacity .2s linear !important; transition-delay: 0s !important; }
 }
-@media (min-width: 721px) { .uru { margin-bottom: 5.5rem; } }

@@ -143,7 +143,7 @@
   const city = p => p.split(' (')[0];
   function uru(list) {
     const T = URU_T[lang], last = list.length - 1;
-    const node = (m, i) => { const d = dateParts(m[0]); return `<li class="uru-i" style="--i:${i}"><button type="button" class="uru-node" data-i="${i}"><span class="y">${esc(d.y)}</span><span class="mo">${esc(d.abbr)}</span></button></li>`; };
+    const node = (m, i) => { const d = dateParts(m[0]); return `<li class="uru-i" style="--i:${i}"><button type="button" class="uru-node" data-i="${i}"><span class="y">${esc(d.y)}</span><span class="mo">${esc(d.abbr)}</span><span class="ci">${esc(city(m[1]))}</span></button></li>`; };
     const end = (m, i, cls) => { const d = dateParts(m[0]); return `<button type="button" class="uru-end ${cls} uru-node" data-i="${i}"><b>${esc(d.y)}</b><span>${esc(city(m[1]))}</span>${i === 0 ? `<small>${esc(T.s0)}</small>` : `<strong class="uru-name">${esc(T.n1)}</strong><small>${esc(T.s1)}</small>`}</button>`; };
     return `<div class="uru" id="uru">
         <p class="kicker">${esc(T.k)}</p>
@@ -323,17 +323,22 @@
       uruEl.querySelectorAll('.uru-node').forEach(n => n.classList.toggle('on', +n.dataset.i === i));
     };
     const pnl = uruEl.querySelector('.uru-panel'), det = uruEl.querySelector('.uru-detail');
-    const wide = () => window.matchMedia('(min-width: 721px)').matches;
+    const mode = () => window.matchMedia('(min-width: 901px)').matches ? 'wide' : window.matchMedia('(min-width: 561px)').matches ? 'side' : 'stack';
     const place = n => {
-      if (!wide()) return;
-      const pr = pnl.getBoundingClientRect(), nr = n.getBoundingClientRect();
-      const w = Math.min(448, pr.width), nx = nr.left + nr.width / 2 - pr.left;
-      const left = Math.max(0, Math.min(nx - w / 2, pr.width - w));
-      det.style.left = left + 'px'; det.style.setProperty('--ax', (nx - left) + 'px');
+      const md = mode(), pr = pnl.getBoundingClientRect(), nr = n.getBoundingClientRect();
+      if (md === 'wide') {
+        const w = Math.min(448, pr.width), nx = nr.left + nr.width / 2 - pr.left;
+        const left = Math.max(0, Math.min(nx - w / 2, pr.width - w));
+        det.style.top = ''; det.style.left = left + 'px'; det.style.setProperty('--ax', (nx - left) + 'px');
+      } else if (md === 'side') {
+        const ny = nr.top + nr.height / 2 - pr.top, h = det.offsetHeight;
+        const top = Math.max(0, Math.min(ny - 28, Math.max(0, pr.height - h)));
+        det.style.left = ''; det.style.top = top + 'px'; det.style.setProperty('--ay', (ny - top) + 'px');
+      } else { det.style.left = ''; det.style.top = ''; }
     };
     const nodesU = [...uruEl.querySelectorAll('.uru-node')];
-    const nearest = x => { let b = nodesU[0], bd = Infinity; nodesU.forEach(n => { const r = n.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - x); if (d < bd) { bd = d; b = n; } }); return b; };
-    uruEl.querySelector('.uru-row').addEventListener('mousemove', e => { const n = nearest(e.clientX); showU(+n.dataset.i); place(n); });
+    const nearest = (x, y) => { const vert = mode() !== 'wide'; let b = nodesU[0], bd = Infinity; nodesU.forEach(n => { const r = n.getBoundingClientRect(), d = vert ? Math.abs(r.top + r.height / 2 - y) : Math.abs(r.left + r.width / 2 - x); if (d < bd) { bd = d; b = n; } }); return b; };
+    uruEl.querySelector('.uru-row').addEventListener('mousemove', e => { const n = nearest(e.clientX, e.clientY); showU(+n.dataset.i); place(n); });
     showU(0);
     uruEl.querySelectorAll('.uru-node').forEach(n => {
       const i = +n.dataset.i;
