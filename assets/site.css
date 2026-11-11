@@ -2,7 +2,7 @@
 /* Salle de projection : un seul monde sombre, choisi pour que l'image des interviews soit au centre.
    Palette: noir-vert de salle, surface vert profond, texte clair, gris-vert discret, ambre du faisceau de projection, filet.
    Fonts: Instrument Serif (titres, textes longs) + DM Sans (interface).
-   Layout: accroche des hommes et femmes + lecteur, texte complet repliable, l'OMC en bref, hommage à Paul Trân, grille des 40 vidéos. */
+   Layout: accroche des hommes et femmes + lecteur, texte complet repliable, l'OMC en bref, hommage à Paul Trân Van Thinh, grille des 40 vidéos. */
 :root {
   --bg: #0B1412;
   --surf: #14211D;

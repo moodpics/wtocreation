@@ -93,15 +93,15 @@
       name: "L’ambassadeur Trân Van Thinh Paul", sub: "Une contribution exceptionnelle",
       p1: "Ce projet a commencé comme un documentaire pour capter la contribution exceptionnelle d’un homme, l’ambassadeur Trân Van Thinh Paul. Il est devenu un recueil d’entretiens de près de 40 ministres, ambassadeurs et négociateurs.",
       p2: "Ambassadeur et Représentant permanent de la Communauté européenne à Genève de 1979 à 1994. À l’origine, ce projet se voulait un hommage à l’occasion de ses 80 ans.",
-      says: [["31350755", "David Hartridge", "relate l’importance des relations personnelles et professionnelles entre Arthur Dunkel et Paul Tran, et le rôle spécial que Paul Tran occupait tout au long du Cycle d’Uruguay."],
-             ["31948123", "Benny Berg Sorensen", "décrit comme membre clé de l’équipe de Paul Tran dans la négociation des textiles."]]
+      says: [["31350755", "David Hartridge", "relate l’importance des relations personnelles et professionnelles entre Arthur Dunkel et Paul TrÃ¢n Van Thinh, et le rôle spécial que Paul TrÃ¢n Van Thinh occupait tout au long du Cycle d’Uruguay."],
+             ["31948123", "Benny Berg Sorensen", "décrit comme membre clé de l’équipe de Paul TrÃ¢n Van Thinh dans la négociation des textiles."]]
     },
     en: {
       name: "Ambassador Trân Van Thinh Paul", sub: "An exceptional contribution",
       p1: "This documentary project began as an effort to capture the exceptional contribution of one individual, Ambassador Trân Van Thinh Paul, who played an instrumental role in the Uruguay Round negotiations.",
       p2: "Ambassador and Permanent Representative of the European Community in Geneva from 1979 to 1994. The project started as a tribute to him, through interviews of people who worked with him.",
-      says: [["31350755", "David Hartridge", "describes the importance of the personal and professional relationship between Arthur Dunkel and Paul Tran, and the special role Paul Tran played throughout the Uruguay Round."],
-             ["31948123", "Benny Berg Sorensen", "is described as a key member of Paul Tran's team in the textile negotiations."]]
+      says: [["31350755", "David Hartridge", "describes the importance of the personal and professional relationship between Arthur Dunkel and Paul TrÃ¢n Van Thinh, and the special role Paul TrÃ¢n Van Thinh played throughout the Uruguay Round."],
+             ["31948123", "Benny Berg Sorensen", "is described as a key member of Paul TrÃ¢n Van Thinh's team in the textile negotiations."]]
     }
   };
   const TRAN_ID = '31350676';
