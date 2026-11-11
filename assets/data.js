@@ -23,7 +23,7 @@ const HOME = {
       "Les hommes et les femmes qui ont créé l’OMC partageaient une vision commune de la croissance économique et du développement durable pour tous. Ce site est une pièce de l’héritage de ces hommes et de ces femmes. Il raconte leur histoire avec leurs propres mots, pour la période allant de 1982, parfois même avant, jusqu’en 1994.",
       "Tout est parti d’un projet de documentaire pour saisir la contribution exceptionnelle d’un homme, l’ambassadeur Trân Van Thinh Paul. Il est devenu un recueil d’entretiens avec près de 40 ministres, ambassadeurs et négociateurs, une ressource inestimable pour les membres de l’OMC, les universitaires, les chercheurs, les étudiants et les générations de demain."
     ],
-    note: "Les vidéos sont présentées par ordre chronologique. Les entrevues sur ce site ont été faites entre janvier 2009 et Décembre 2011"
+    note: "Les vidéos sont présentées par ordre chronologique. Les entrevues sur ce site ont été réalisées entre janvier 2009 et décembre 2011."
   },
   en: {
     p: [
@@ -31,7 +31,7 @@ const HOME = {
       "This documentary project began as an effort to capture the exceptional contribution of one individual, Ambassador Trân Van Thinh Paul, who played an instrumental role in the Uruguay Round negotiations. The project has now grown into a collection of interviews from nearly 40 ministers, ambassadors, chief negotiators, and other key figures. With recollections that span the 1982 – 1994 period, this project tells the story of the WTO in the words of the men and women who created it.",
       "The interviews offer insights into a variety of issues and topics: from the importance of the historic “green room” meetings, to the struggle to achieve real progress in the negotiations on agriculture, to the realization of new institutional architecture. Most importantly, these interviews capture the true spirit of the Uruguay Round negotiations, and provide an invaluable resource for WTO Members, academics and students as well as the economic actors of today and tomorrow."
     ],
-    note: "Videos are presented in chronological order. The interviews on this site were made in January 2009 and enter December 2011."
+    note: "Videos are presented in chronological order. The interviews on this site were recorded between January 2009 and December 2011."
   }
 };
 
