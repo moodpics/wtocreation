@@ -77,16 +77,34 @@
       chips: ["Des échanges équitables", "La croissance", "Un développement durable"],
       meansT: "Le moyen", meansP: "Des règles négociées, et un système efficace de règlement des différends.",
       resultT: "Le résultat", resultP: "Les obstacles aux échanges commerciaux mondiaux ont été considérablement réduits, dans un cadre qui assure une concurrence équitable pour tous les membres de l’OMC, qu’ils soient en développement ou industrialisés.",
-      y1: "1982", y1p: "Début de la période racontée par les témoignages, parfois même avant.",
-      y2: "1994", y2p: "Création de l’OMC. Avec l’Acte final du Cycle d’Uruguay, l’accord historique de Marrakech, le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."
+      mile: [
+        ["1982", "", "Début de la période racontée par les témoignages, parfois même avant."],
+        ["Septembre 1986", "Punta del Este (Uruguay)", "Lancement officiel du Cycle d’Uruguay, qui lui doit son nom. Les ministres se donnent quatre ans pour conclure. Les négociations se dérouleront ensuite surtout à Genève, au siège du GATT."],
+        ["Décembre 1988", "Montréal (Canada)", "Réunion ministérielle à mi-parcours. Les ministres s’accordent sur un premier paquet de résultats ; l’examen sera achevé à Genève en avril 1989."],
+        ["Décembre 1990", "Bruxelles (Belgique)", "La réunion ministérielle censée conclure le cycle s’achève sur une impasse, notamment sur l’agriculture. Le cycle se prolonge."],
+        ["Décembre 1991", "Genève (Suisse)", "Arthur Dunkel, directeur général du GATT, présente le premier projet d’Acte final. Il servira de base à l’accord définitif."],
+        ["Novembre 1992", "Washington (États-Unis)", "Accord de Blair House : les États-Unis et la Communauté européenne règlent l’essentiel de leur différend sur l’agriculture."],
+        ["Juillet 1993", "Tokyo (Japon)", "Au sommet du G7, le « Quad » (États-Unis, Union européenne, Japon, Canada) annonce une percée sur l’accès aux marchés."],
+        ["Décembre 1993", "Genève (Suisse)", "Fin de la plupart des négociations ; quelques discussions sur l’accès aux marchés se poursuivent."],
+        ["Avril 1994", "Marrakech (Maroc)", "Les ministres de la plupart des 123 gouvernements participants signent l’Acte final du Cycle d’Uruguay : c’est l’accord de Marrakech, qui crée l’OMC. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
+      ]
     },
     en: {
       goalT: "The goal", goalP: "A trading system that promotes fair commercial relations, stimulates economic growth and supports sustainable development.",
       chips: ["Fair trade relations", "Economic growth", "Sustainable development"],
       meansT: "The means", meansP: "A transparent rules-based system and a formal mechanism for the settlement of disputes.",
       resultT: "The result", resultP: "The WTO continues to reduce obstacles to trade and offers a level playing field for all Members, irrespective of their level of economic development.",
-      y1: "1982", y1p: "The period covered by the recollections starts here, sometimes even earlier.",
-      y2: "1994", y2p: "The creation of the WTO. With the adoption of the historic Marrakech Agreement at the conclusion of the Uruguay Round, developing and developed countries joined together in a shared commitment to an equitable world."
+      mile: [
+        ["1982", "", "The period covered by the recollections starts here, sometimes even earlier."],
+        ["September 1986", "Punta del Este (Uruguay)", "Official launch of the Uruguay Round, which takes its name from the venue. Ministers give themselves four years to conclude. Most of the negotiations then take place in Geneva, at the GATT headquarters."],
+        ["December 1988", "Montreal (Canada)", "Ministerial mid-term review. Ministers agree a package of early results; the review is completed in Geneva in April 1989."],
+        ["December 1990", "Brussels (Belgium)", "The ministerial meeting meant to close the round ends in deadlock, notably over agriculture. The round is extended."],
+        ["December 1991", "Geneva (Switzerland)", "Arthur Dunkel, GATT Director-General, tables the first draft of the Final Act. It becomes the basis of the final agreement."],
+        ["November 1992", "Washington (United States)", "The Blair House accord: the United States and the European Community settle most of their differences on agriculture."],
+        ["July 1993", "Tokyo (Japan)", "At the G7 summit, the “Quad” (United States, European Union, Japan, Canada) announces a breakthrough on market access."],
+        ["December 1993", "Geneva (Switzerland)", "Most negotiations end; some market-access talks continue."],
+        ["April 1994", "Marrakech (Morocco)", "Ministers from most of the 123 participating governments sign the Final Act of the Uruguay Round: the Marrakech Agreement, which creates the WTO. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
+      ]
     }
   };
   const TRAN = {
@@ -144,8 +162,7 @@
         <article class="step"><span class="ico">${icoResult}</span><h3>${esc(B.resultT)}</h3><p>${esc(B.resultP)}</p></article>
       </div>
       <div class="mile">
-        <div class="pt"><b>${esc(B.y1)}</b><p>${esc(B.y1p)}</p></div>
-        <div class="pt"><b>${esc(B.y2)}</b><p>${esc(B.y2p)}</p></div>
+        ${B.mile.map(m => `<div class="pt"><b>${esc(m[0])}</b>${m[1] ? `<span class="where">${esc(m[1])}</span>` : ''}<p>${esc(m[2])}</p></div>`).join('')}
       </div>
     </section>
     <section class="tran" aria-labelledby="tran-h">
