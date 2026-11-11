@@ -378,7 +378,7 @@ ul { list-style: none; }
 
 .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); gap: 48px; align-items: center; padding: 40px 0 48px; }
 .hero h1 { font-size: clamp(2.5rem, 5.6cqi, 5rem); max-width: 10ch; }
-.hero .sub { max-width: 34ch; font-size: clamp(1.125rem, 1.8cqi, 1.5rem); }
+.hero .sub { max-width: 44ch; font-size: clamp(1rem, 1.35cqi, 1.2rem); line-height: 1.5; }
 .hero .cap { margin-top: 12px; }
 
 @container site (min-width: 941px) {
