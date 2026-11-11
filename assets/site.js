@@ -151,6 +151,7 @@
           ${end(list[0], 0, 'left')}
           <div class="uru-track">
             <button type="button" class="uru-line" id="uruToggle" aria-expanded="false" aria-controls="uruMid" aria-label="${esc(T.toggle)}"></button>
+            <span class="uru-cursor" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 2 L4 20 L8.5 15.5 L12 22 L14.5 20.8 L11 14.5 L17.5 14.5 Z" fill="#fff" stroke="#0B1412" stroke-width="1.3" stroke-linejoin="round"/></svg><i class="uru-ring"></i></span>
             <ol class="uru-mid" id="uruMid">${list.slice(1, last).map((m, k) => node(m, k + 1)).join('')}</ol>
           </div>
           ${end(list[last], last, 'right')}

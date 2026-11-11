@@ -472,3 +472,51 @@ ul { list-style: none; }
   .uru-detail::before { display: none; }
 }
 @media (prefers-reduced-motion: reduce) { .uru-detail, .uru-detail::before { transition: none; } }
+/* Replié : 1994 tout près de 1986, une fausse souris invite à survoler ; ouvert : la ligne s'étire */
+.uru { margin-bottom: 3.5rem; }
+.uru-track { max-width: 11rem; transition: max-width .75s cubic-bezier(.2,.8,.2,1); }
+.uru.open .uru-track, .uru:focus-within .uru-track { max-width: 100%; }
+@media (hover: hover) { .uru:hover .uru-track { max-width: 100%; } }
+.uru-hint { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; background: none; }
+.uru-panel { height: 0; min-height: 0; margin-top: 22px; }
+.uru-detail { z-index: 5; }
+.uru-cursor { position: absolute; left: 2%; top: 1.25rem; width: 22px; height: 22px; margin: -3px 0 0 -4px; pointer-events: none; z-index: 2; opacity: 0;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.55)); animation: uruMove 5.5s cubic-bezier(.4,0,.2,1) infinite; }
+.uru-ring { position: absolute; left: -2px; top: -3px; width: 12px; height: 12px; border: 1px solid var(--amber); border-radius: 50%; opacity: 0; animation: uruRing 5.5s ease-out infinite; }
+@keyframes uruMove {
+  0%   { left: 2%;  top: calc(1.25rem + 26px); opacity: 0; }
+  12%  { opacity: .95; }
+  32%  { left: 32%; top: calc(1.25rem + 6px); }
+  56%  { left: 64%; top: calc(1.25rem - 18px); }
+  78%  { left: 92%; top: calc(1.25rem + 1px); transform: scale(1); opacity: .95; }
+  83%  { transform: scale(.86); }
+  88%  { transform: scale(1); opacity: .95; }
+  100% { left: 100%; top: calc(1.25rem + 16px); opacity: 0; }
+}
+@keyframes uruRing {
+  0%, 80% { opacity: 0; transform: scale(.4); }
+  84% { opacity: .9; transform: scale(.7); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+.uru.open .uru-cursor, .uru:focus-within .uru-cursor { display: none; }
+@media (hover: hover) { .uru:hover .uru-cursor { display: none; } }
+@media (max-width: 720px) {
+  .uru-track { max-width: none; }
+  .uru-panel { height: auto; }
+  .uru { margin-bottom: 2rem; }
+  .uru-cursor { left: 14px; animation-name: uruMoveV; }
+  @keyframes uruMoveV {
+    0%   { top: 0; opacity: 0; }
+    15%  { opacity: .95; }
+    70%  { top: 1.6rem; transform: scale(1); opacity: .95; }
+    76%  { transform: scale(.86); }
+    82%  { transform: scale(1); }
+    100% { top: 2.1rem; opacity: 0; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .uru-track { transition: none; }
+  .uru-cursor { animation: none; left: 45%; opacity: .9; }
+  .uru-ring { animation: none; }
+}
+@media (min-width: 721px) { .uru { margin-bottom: 5.5rem; } }
