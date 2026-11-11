@@ -35,6 +35,11 @@ const HOME = {
   }
 };
 
+/* Descriptions en anglais (optionnelles) : affichées sur la version EN quand elles existent, sinon le texte français. */
+const DESC_EN = {
+ "30838690": "Herman Van Rompuy was the first permanent President of the European Council, from December 2009 to November 2014, after serving as Prime Minister of Belgium (2008–2009). Since 2019 he has chaired the board of the College of Europe. In this video, recorded while he held the presidency of the European Council, Mr Van Rompuy gives the introduction to this WTO documentary project. He stresses the importance of multilateralism, a source of the WTO's success, and what it can mean for students, workers, legislators and diplomats today."
+};
+
 /* Les descriptions des vidéos sont en français sur les deux versions du site actuel. */
 const V = [
  ["30838690","Herman Van Rompuy","Herman Van Rompuy a été le premier président permanent du Conseil européen, de décembre 2009 à novembre 2014, après avoir été Premier ministre de Belgique (2008-2009). Il préside depuis 2019 le conseil d'administration du Collège d'Europe. Dans cette vidéo, enregistrée alors qu'il exerçait la présidence du Conseil européen, M. Van Rompuy nous fournit l'introduction de ce projet de documentaire de l'OMC, et souligne l'importance du multilatéralisme, source de succès de l'OMC, et de ce que cela peut signifier pour les étudiants, les travailleurs, les législateurs et les diplomates d'aujourd'hui."],

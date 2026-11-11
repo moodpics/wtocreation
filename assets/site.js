@@ -182,7 +182,7 @@
         ${player(v[0], v[1], false)}
         ${vimeoLink(v[0])}
         <h1>${esc(v[1])}</h1>
-        <p class="desc" lang="fr">${esc(v[2])}</p>
+        <p class="desc" lang="${lang === 'en' && DESC_EN[v[0]] ? 'en' : 'fr'}">${esc(lang === 'en' && DESC_EN[v[0]] ? DESC_EN[v[0]] : v[2])}</p>
         ${v[3] ? `<p style="margin-top:14px"><a class="btn ghost" href="${esc(asset(v[3]))}" target="_blank" rel="noopener">${esc(t.translation)}</a></p>` : ''}
         <p class="note">${esc(HOME[lang].note)}</p>
       </article>
