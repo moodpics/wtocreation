@@ -459,3 +459,16 @@ ul { list-style: none; }
 .uru-end small { display: block; margin-top: 8px; max-width: 15rem; font-size: .8125rem; line-height: 1.35; color: var(--soft); }
 .uru-end.right small { margin-left: auto; }
 @media (max-width: 720px) { .uru-end.right small { margin-left: 0; } .uru-end small { max-width: 22rem; } }
+/* Texte sous la souris, centré sur le point survolé */
+.uru-end .uru-name { display: block; margin-top: 10px; font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; color: var(--tx); font-weight: 400; }
+.uru-end .uru-name + small { margin-top: 4px; }
+.uru-panel { position: relative; min-height: 9.5rem; margin-top: 22px; padding: 0; background: none; border: 0; }
+.uru-hint { padding: 18px 22px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; }
+.uru-detail { position: absolute; top: 0; left: 0; width: min(28rem, 100%); padding: 16px 20px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; box-shadow: 0 14px 40px -20px rgba(0,0,0,.6); transition: left .3s cubic-bezier(.2,.8,.2,1); }
+.uru-detail::before { content: ""; position: absolute; top: -6px; left: var(--ax, 50%); width: 10px; height: 10px; margin-left: -5px; background: var(--surf); border-left: 1px solid var(--ln); border-top: 1px solid var(--ln); transform: rotate(45deg); transition: left .3s cubic-bezier(.2,.8,.2,1); }
+@media (max-width: 720px) {
+  .uru-panel { min-height: 0; }
+  .uru-detail { position: static; width: auto; }
+  .uru-detail::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .uru-detail, .uru-detail::before { transition: none; } }

@@ -86,7 +86,7 @@
         ["Novembre 1992", "Washington (États-Unis)", "Accord de Blair House : les États-Unis et la Communauté européenne règlent l’essentiel de leur différend sur l’agriculture."],
         ["Juillet 1993", "Tokyo (Japon)", "Au sommet du G7, le « Quad » (États-Unis, Union européenne, Japon, Canada) annonce une percée sur l’accès aux marchés."],
         ["Décembre 1993", "Genève (Suisse)", "Fin de la plupart des négociations ; quelques discussions sur l’accès aux marchés se poursuivent."],
-        ["Avril 1994", "Marrakech (Maroc)", "Les ministres signent l’Acte final : c’est l’accord de Marrakech, qui crée l’OMC. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
+        ["Avril 1994", "Marrakech (Maroc)", "Les ministres des 124 gouvernements et des Communautés européennes participants signent l’Acte final reprenant les résultats des négociations commerciales multilatérales du Cycle d’Uruguay : c’est l’accord de Marrakech, qui crée l’OMC. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
       ]
     },
     en: {
@@ -103,7 +103,7 @@
         ["November 1992", "Washington (United States)", "The Blair House accord: the United States and the European Community settle most of their differences on agriculture."],
         ["July 1993", "Tokyo (Japan)", "At the G7 summit, the “Quad” (United States, European Union, Japan, Canada) announces a breakthrough on market access."],
         ["December 1993", "Geneva (Switzerland)", "Most negotiations end; some market-access talks continue."],
-        ["April 1994", "Marrakech (Morocco)", "Ministers sign the Final Act: the Marrakech Agreement, which creates the WTO. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
+        ["April 1994", "Marrakech (Morocco)", "Ministers of the 124 participating governments and the European Communities sign the Final Act Embodying the Results of the Uruguay Round of Multilateral Trade Negotiations: the Marrakech Agreement, which creates the WTO. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
       ]
     }
   };
@@ -135,8 +135,8 @@
   const filtered = () => V.filter(v => !query || (label(v) + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
   const URU_T = {
-    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", s1: "Acte final reprenant les résultats des négociations commerciales multilatérales du Cycle d’Uruguay", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
-    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", s1: "Final Act Embodying the Results of the Uruguay Round of Multilateral Trade Negotiations", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
+    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", n1: "Accord de Marrakech", s1: "Création · Naissance de l’OMC", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
+    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", n1: "Marrakech Agreement", s1: "Creation · Birth of the WTO", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
   };
   const MONTHS_FR = { janvier: 'janv.', février: 'févr.', mars: 'mars', avril: 'avr.', mai: 'mai', juin: 'juin', juillet: 'juil.', août: 'août', septembre: 'sept.', octobre: 'oct.', novembre: 'nov.', décembre: 'déc.' };
   const dateParts = d => { const w = d.split(' '); const y = w.pop(); const m = w.join(' '); return { y, m, abbr: lang === 'fr' ? (MONTHS_FR[m.toLowerCase()] || m) : m.slice(0, 3) }; };
@@ -144,7 +144,7 @@
   function uru(list) {
     const T = URU_T[lang], last = list.length - 1;
     const node = (m, i) => { const d = dateParts(m[0]); return `<li class="uru-i" style="--i:${i}"><button type="button" class="uru-node" data-i="${i}"><span class="y">${esc(d.y)}</span><span class="mo">${esc(d.abbr)}</span></button></li>`; };
-    const end = (m, i, cls) => { const d = dateParts(m[0]); return `<button type="button" class="uru-end ${cls} uru-node" data-i="${i}"><b>${esc(d.y)}</b><span>${esc(city(m[1]))}</span><small>${esc(i === 0 ? T.s0 : T.s1)}</small></button>`; };
+    const end = (m, i, cls) => { const d = dateParts(m[0]); return `<button type="button" class="uru-end ${cls} uru-node" data-i="${i}"><b>${esc(d.y)}</b><span>${esc(city(m[1]))}</span>${i === 0 ? `<small>${esc(T.s0)}</small>` : `<strong class="uru-name">${esc(T.n1)}</strong><small>${esc(T.s1)}</small>`}</button>`; };
     return `<div class="uru" id="uru">
         <p class="kicker">${esc(T.k)}</p>
         <div class="uru-row">
@@ -321,11 +321,23 @@
       document.getElementById('uruWhat').textContent = m[2];
       uruEl.querySelectorAll('.uru-node').forEach(n => n.classList.toggle('on', +n.dataset.i === i));
     };
+    const pnl = uruEl.querySelector('.uru-panel'), det = uruEl.querySelector('.uru-detail');
+    const wide = () => window.matchMedia('(min-width: 721px)').matches;
+    const place = n => {
+      if (!wide()) return;
+      const pr = pnl.getBoundingClientRect(), nr = n.getBoundingClientRect();
+      const w = Math.min(448, pr.width), nx = nr.left + nr.width / 2 - pr.left;
+      const left = Math.max(0, Math.min(nx - w / 2, pr.width - w));
+      det.style.left = left + 'px'; det.style.setProperty('--ax', (nx - left) + 'px');
+    };
+    const nodesU = [...uruEl.querySelectorAll('.uru-node')];
+    const nearest = x => { let b = nodesU[0], bd = Infinity; nodesU.forEach(n => { const r = n.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - x); if (d < bd) { bd = d; b = n; } }); return b; };
+    uruEl.querySelector('.uru-row').addEventListener('mousemove', e => { const n = nearest(e.clientX); showU(+n.dataset.i); place(n); });
     showU(0);
     uruEl.querySelectorAll('.uru-node').forEach(n => {
       const i = +n.dataset.i;
-      n.addEventListener('mouseenter', () => showU(i));
-      n.addEventListener('focus', () => showU(i));
+      n.addEventListener('mouseenter', () => { showU(i); place(n); });
+      n.addEventListener('focus', () => { showU(i); place(n); });
       n.addEventListener('click', () => { showU(i); if (!uruEl.classList.contains('open')) { uruEl.classList.add('open'); document.getElementById('uruToggle').setAttribute('aria-expanded', 'true'); } });
     });
     document.getElementById('uruToggle').addEventListener('click', e => { const o = uruEl.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded', String(o)); });
