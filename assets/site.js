@@ -134,6 +134,33 @@
   let query = '';
   const filtered = () => V.filter(v => !query || (label(v) + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
+  const URU_T = {
+    fr: { k: "Le Cycle d’Uruguay", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
+    en: { k: "The Uruguay Round", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
+  };
+  const MONTHS_FR = { janvier: 'janv.', février: 'févr.', mars: 'mars', avril: 'avr.', mai: 'mai', juin: 'juin', juillet: 'juil.', août: 'août', septembre: 'sept.', octobre: 'oct.', novembre: 'nov.', décembre: 'déc.' };
+  const dateParts = d => { const w = d.split(' '); const y = w.pop(); const m = w.join(' '); return { y, m, abbr: lang === 'fr' ? (MONTHS_FR[m.toLowerCase()] || m) : m.slice(0, 3) }; };
+  const city = p => p.split(' (')[0];
+  function uru(list) {
+    const T = URU_T[lang], last = list.length - 1;
+    const node = (m, i) => { const d = dateParts(m[0]); return `<li class="uru-i" style="--i:${i}"><button type="button" class="uru-node" data-i="${i}"><span class="y">${esc(d.y)}</span><span class="mo">${esc(d.abbr)}</span></button></li>`; };
+    const end = (m, i, cls) => { const d = dateParts(m[0]); return `<button type="button" class="uru-end ${cls} uru-node" data-i="${i}"><b>${esc(d.y)}</b><span>${esc(city(m[1]))}</span></button>`; };
+    return `<div class="uru" id="uru">
+        <p class="kicker">${esc(T.k)}</p>
+        <div class="uru-row">
+          ${end(list[0], 0, 'left')}
+          <div class="uru-track">
+            <button type="button" class="uru-line" id="uruToggle" aria-expanded="false" aria-controls="uruMid" aria-label="${esc(T.toggle)}"></button>
+            <ol class="uru-mid" id="uruMid">${list.slice(1, last).map((m, k) => node(m, k + 1)).join('')}</ol>
+          </div>
+          ${end(list[last], last, 'right')}
+        </div>
+        <div class="uru-panel" aria-live="polite">
+          <p class="uru-hint">${esc(T.hint)}</p>
+          <div class="uru-detail"><p class="uru-when"><b id="uruWhen"></b> <span id="uruWhere"></span></p><p class="uru-what" id="uruWhat"></p></div>
+        </div>
+      </div>`;
+  }
   function viewHome() {
     const h = HOME[lang], H = HERO[lang], G = BRIDGE[lang], B = BRIEF[lang], T = TRAN[lang], v0 = V[0];
     return `
@@ -161,9 +188,7 @@
         <article class="step"><span class="ico">${icoRules}</span><h3>${esc(B.meansT)}</h3><p>${esc(B.meansP)}</p></article>
         <article class="step"><span class="ico">${icoResult}</span><h3>${esc(B.resultT)}</h3><p>${esc(B.resultP)}</p></article>
       </div>
-      <div class="mile">
-        ${B.mile.map(m => `<div class="pt"><b>${esc(m[0])}</b>${m[1] ? `<span class="where">${esc(m[1])}</span>` : ''}<p>${esc(m[2])}</p></div>`).join('')}
-      </div>
+      ${uru(B.mile.slice(1))}
     </section>
     <section class="tran" aria-labelledby="tran-h">
       <div><p class="kicker">${esc(t.kC)}</p>
@@ -286,6 +311,25 @@
   if (q) q.addEventListener('input', () => { query = q.value; $('grid').innerHTML = cards(filtered()); });
   const full = $('full');
   if (full) full.addEventListener('toggle', () => { $('fullLbl').textContent = full.open ? t.foldFull : t.readFull; });
+  const uruEl = document.getElementById('uru');
+  if (uruEl) {
+    const URU = BRIEF[lang].mile.slice(1);
+    const showU = i => {
+      const m = URU[i], d = dateParts(m[0]);
+      document.getElementById('uruWhen').textContent = d.m + ' ' + d.y + (m[1] ? ' ·' : '');
+      document.getElementById('uruWhere').textContent = m[1];
+      document.getElementById('uruWhat').textContent = m[2];
+      uruEl.querySelectorAll('.uru-node').forEach(n => n.classList.toggle('on', +n.dataset.i === i));
+    };
+    showU(0);
+    uruEl.querySelectorAll('.uru-node').forEach(n => {
+      const i = +n.dataset.i;
+      n.addEventListener('mouseenter', () => showU(i));
+      n.addEventListener('focus', () => showU(i));
+      n.addEventListener('click', () => { showU(i); if (!uruEl.classList.contains('open')) { uruEl.classList.add('open'); document.getElementById('uruToggle').setAttribute('aria-expanded', 'true'); } });
+    });
+    document.getElementById('uruToggle').addEventListener('click', e => { const o = uruEl.classList.toggle('open'); e.currentTarget.setAttribute('aria-expanded', String(o)); });
+  }
   $('menuBtn').addEventListener('click', () => { const o = $('nav').classList.toggle('open'); $('menuBtn').setAttribute('aria-expanded', String(o)); });
 
   const form = $('form');

@@ -395,10 +395,64 @@ ul { list-style: none; }
   .masthead .meta { justify-content: flex-start; }
 }
 
-/* Frise verticale du Cycle d'Uruguay */
-.mile { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 48px; position: relative; }
-.mile::before { top: 8px; bottom: 8px; left: 6px; right: auto; border-top: 0; border-left: 1px solid var(--amber); }
-.mile .pt { padding-top: 0; padding-left: 40px; }
-.mile .pt::before { left: 0; top: 6px; }
-.mile b { font-size: 1.75rem; margin-bottom: 4px; }
-.mile .where { display: block; margin-bottom: 8px; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+/* Chronologie interactive du Cycle d'Uruguay : 1986 → 1994 */
+.uru { margin-top: 48px; }
+.uru-row { display: flex; align-items: flex-start; }
+.uru-end { flex: none; background: none; border: 0; padding: 0; color: inherit; font: inherit; text-align: left; cursor: default; }
+.uru-end.right { text-align: right; }
+.uru-end b { display: block; font-family: var(--serif); font-size: 2.5rem; font-weight: 400; line-height: 1; }
+.uru-end span { display: block; margin-top: 8px; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+.uru-track { position: relative; flex: 1; min-width: 0; margin: 0 20px; }
+.uru-line { position: absolute; left: 0; right: 0; top: 1.25rem; height: 28px; transform: translateY(-50%); background: none; border: 0; padding: 0; cursor: pointer; z-index: 1; }
+.uru-line::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--amber); opacity: .45; transition: opacity .4s; }
+.uru-line:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+.uru-mid { list-style: none; margin: 0; padding: 0; display: flex; justify-content: space-between; position: relative; }
+.uru-i { flex: 1; text-align: center; opacity: 0; visibility: hidden; transform: translateX(-36px); filter: blur(4px);
+  transition: opacity .5s ease, transform .6s cubic-bezier(.2,.8,.2,1), filter .5s ease, visibility 0s linear .6s; transition-delay: 0s, 0s, 0s, .6s; }
+.uru-node { position: relative; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; }
+.uru-i .uru-node { display: block; width: 100%; padding: 2.2rem 0 6px; }
+.uru-i .uru-node::before { content: ""; position: absolute; top: calc(1.25rem - 4px); left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 3px rgba(226,163,59,.18); transition: transform .25s, box-shadow .25s; }
+.uru-i .y { display: block; font-family: var(--serif); font-size: 1.125rem; line-height: 1.1; color: var(--soft); }
+.uru-i .mo { display: block; margin-top: 2px; font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; color: var(--mut); }
+.uru-i .uru-node:hover::before, .uru-i .uru-node:focus-visible::before, .uru-i .uru-node.on::before { transform: scale(1.5); box-shadow: 0 0 0 5px rgba(226,163,59,.25); }
+.uru-i .uru-node.on .y { color: var(--tx); }
+.uru-node:focus-visible { outline: 1px dashed var(--amber); outline-offset: 2px; }
+.uru.open .uru-end.on b, .uru:focus-within .uru-end.on b { color: var(--amber); }
+@media (hover: hover) { .uru:hover .uru-end.on b { color: var(--amber); } }
+.uru-panel { margin-top: 28px; min-height: 8.5rem; padding: 18px 22px; background: var(--surf); border: 1px solid var(--ln); border-radius: 6px; }
+.uru-hint { margin: 0; color: var(--mut); font-size: .9375rem; }
+.uru-detail { display: none; }
+.uru-when { margin: 0 0 6px; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+.uru-when b { font-weight: 600; }
+.uru-what { margin: 0; color: var(--soft); max-width: 70ch; }
+/* état ouvert : clic/tap, focus clavier, ou survol (appareils avec souris) */
+.uru.open .uru-i, .uru:focus-within .uru-i { opacity: 1; visibility: visible; transform: none; filter: none; transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0s; }
+.uru.open .uru-line::before, .uru:focus-within .uru-line::before { opacity: 1; }
+.uru.open .uru-hint, .uru:focus-within .uru-hint { display: none; }
+.uru.open .uru-detail, .uru:focus-within .uru-detail { display: block; }
+@media (hover: hover) {
+  .uru:hover .uru-i { opacity: 1; visibility: visible; transform: none; filter: none; transition-delay: calc(var(--i) * 70ms), calc(var(--i) * 70ms), calc(var(--i) * 70ms), 0s; }
+  .uru:hover .uru-line::before { opacity: 1; }
+  .uru:hover .uru-hint { display: none; }
+  .uru:hover .uru-detail { display: block; }
+}
+@media (max-width: 720px) {
+  .uru-row { flex-direction: column; }
+  .uru-end.right { text-align: left; }
+  .uru-end b { font-size: 2.25rem; }
+  .uru-track { margin: 14px 0 14px 0; min-height: 2.5rem; max-height: 2.5rem; overflow: hidden; transition: max-height .6s cubic-bezier(.2,.8,.2,1); }
+  .uru.open .uru-track, .uru:focus-within .uru-track { max-height: 30rem; }
+  .uru-line { left: 6px; right: auto; top: 0; bottom: 0; width: 28px; height: auto; transform: none; }
+  .uru-line::before { left: 6px; right: auto; top: 0; bottom: 0; border-top: 0; border-left: 1px solid var(--amber); }
+  .uru-mid { flex-direction: column; gap: 4px; padding-left: 0; }
+  .uru-i { text-align: left; transform: translateY(-14px); }
+  .uru-i .uru-node { padding: 6px 0 6px 40px; }
+  .uru-i .uru-node::before { top: 50%; left: 6px; margin-top: -4px; margin-left: 0; }
+  .uru-i .y, .uru-i .mo { display: inline; }
+  .uru-i .mo { margin-left: 8px; }
+}
+@media (max-width: 720px) and (hover: hover) { .uru:hover .uru-track { max-height: 30rem; } }
+@media (prefers-reduced-motion: reduce) {
+  .uru-i { transform: none !important; filter: none !important; transition: opacity .2s linear !important; transition-delay: 0s !important; }
+  .uru-track { transition: none; }
+}
