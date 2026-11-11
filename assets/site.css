@@ -456,3 +456,6 @@ ul { list-style: none; }
   .uru-i { transform: none !important; filter: none !important; transition: opacity .2s linear !important; transition-delay: 0s !important; }
   .uru-track { transition: none; }
 }
+.uru-end small { display: block; margin-top: 8px; max-width: 15rem; font-size: .8125rem; line-height: 1.35; color: var(--soft); }
+.uru-end.right small { margin-left: auto; }
+@media (max-width: 720px) { .uru-end.right small { margin-left: 0; } .uru-end small { max-width: 22rem; } }

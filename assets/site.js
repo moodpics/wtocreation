@@ -86,7 +86,7 @@
         ["Novembre 1992", "Washington (États-Unis)", "Accord de Blair House : les États-Unis et la Communauté européenne règlent l’essentiel de leur différend sur l’agriculture."],
         ["Juillet 1993", "Tokyo (Japon)", "Au sommet du G7, le « Quad » (États-Unis, Union européenne, Japon, Canada) annonce une percée sur l’accès aux marchés."],
         ["Décembre 1993", "Genève (Suisse)", "Fin de la plupart des négociations ; quelques discussions sur l’accès aux marchés se poursuivent."],
-        ["Avril 1994", "Marrakech (Maroc)", "Les ministres de la plupart des 123 gouvernements participants signent l’Acte final du Cycle d’Uruguay : c’est l’accord de Marrakech, qui crée l’OMC. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
+        ["Avril 1994", "Marrakech (Maroc)", "Les ministres signent l’Acte final : c’est l’accord de Marrakech, qui crée l’OMC. Le monde salue l’OMC comme la première pierre angulaire d’un nouvel état de droit multilatéral pour les échanges économiques à l’échelle mondiale."]
       ]
     },
     en: {
@@ -103,7 +103,7 @@
         ["November 1992", "Washington (United States)", "The Blair House accord: the United States and the European Community settle most of their differences on agriculture."],
         ["July 1993", "Tokyo (Japan)", "At the G7 summit, the “Quad” (United States, European Union, Japan, Canada) announces a breakthrough on market access."],
         ["December 1993", "Geneva (Switzerland)", "Most negotiations end; some market-access talks continue."],
-        ["April 1994", "Marrakech (Morocco)", "Ministers from most of the 123 participating governments sign the Final Act of the Uruguay Round: the Marrakech Agreement, which creates the WTO. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
+        ["April 1994", "Marrakech (Morocco)", "Ministers sign the Final Act: the Marrakech Agreement, which creates the WTO. With it, developing and developed countries joined together in a shared commitment to an equitable world."]
       ]
     }
   };
@@ -135,8 +135,8 @@
   const filtered = () => V.filter(v => !query || (label(v) + ' ' + v[2]).toLowerCase().includes(query.toLowerCase()));
 
   const URU_T = {
-    fr: { k: "Le Cycle d’Uruguay", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
-    en: { k: "The Uruguay Round", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
+    fr: { k: "Le Cycle d’Uruguay", s0: "Début du Cycle d’Uruguay", s1: "Acte final reprenant les résultats des négociations commerciales multilatérales du Cycle d’Uruguay", hint: "Passez la souris (ou touchez la ligne) pour dérouler les étapes, de 1986 à 1994.", toggle: "Dérouler ou replier les étapes du Cycle d’Uruguay" },
+    en: { k: "The Uruguay Round", s0: "Start of the Uruguay Round", s1: "Final Act Embodying the Results of the Uruguay Round of Multilateral Trade Negotiations", hint: "Hover (or tap the line) to unroll the milestones, from 1986 to 1994.", toggle: "Unroll or fold the milestones of the Uruguay Round" }
   };
   const MONTHS_FR = { janvier: 'janv.', février: 'févr.', mars: 'mars', avril: 'avr.', mai: 'mai', juin: 'juin', juillet: 'juil.', août: 'août', septembre: 'sept.', octobre: 'oct.', novembre: 'nov.', décembre: 'déc.' };
   const dateParts = d => { const w = d.split(' '); const y = w.pop(); const m = w.join(' '); return { y, m, abbr: lang === 'fr' ? (MONTHS_FR[m.toLowerCase()] || m) : m.slice(0, 3) }; };
@@ -144,7 +144,7 @@
   function uru(list) {
     const T = URU_T[lang], last = list.length - 1;
     const node = (m, i) => { const d = dateParts(m[0]); return `<li class="uru-i" style="--i:${i}"><button type="button" class="uru-node" data-i="${i}"><span class="y">${esc(d.y)}</span><span class="mo">${esc(d.abbr)}</span></button></li>`; };
-    const end = (m, i, cls) => { const d = dateParts(m[0]); return `<button type="button" class="uru-end ${cls} uru-node" data-i="${i}"><b>${esc(d.y)}</b><span>${esc(city(m[1]))}</span></button>`; };
+    const end = (m, i, cls) => { const d = dateParts(m[0]); return `<button type="button" class="uru-end ${cls} uru-node" data-i="${i}"><b>${esc(d.y)}</b><span>${esc(city(m[1]))}</span><small>${esc(i === 0 ? T.s0 : T.s1)}</small></button>`; };
     return `<div class="uru" id="uru">
         <p class="kicker">${esc(T.k)}</p>
         <div class="uru-row">
