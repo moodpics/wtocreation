@@ -35,9 +35,48 @@ const HOME = {
   }
 };
 
-/* Descriptions en anglais (optionnelles) : affichées sur la version EN quand elles existent, sinon le texte français. */
+/* Descriptions en anglais : affichées sur la version EN (le texte français reste utilisé si une entrée manque). */
 const DESC_EN = {
- "30838690": "Herman Van Rompuy was the first permanent President of the European Council, from December 2009 to November 2014, after serving as Prime Minister of Belgium (2008–2009). Since 2019 he has chaired the board of the College of Europe. In this video, recorded while he held the presidency of the European Council, Mr Van Rompuy gives the introduction to this WTO documentary project. He stresses the importance of multilateralism, a source of the WTO's success, and what it can mean for students, workers, legislators and diplomats today."
+ "30838690": "Herman Van Rompuy was the first permanent President of the European Council, from December 2009 to November 2014, after serving as Prime Minister of Belgium (2008–2009). Since 2019 he has chaired the board of the College of Europe. In this video, recorded while he held the presidency of the European Council, Mr Van Rompuy gives the introduction to this WTO documentary project. He stresses the importance of multilateralism, a source of the WTO's success, and what it can mean for students, workers, legislators and diplomats today.",
+ "29521250": "Director-General of the WTO from September 2005 to September 2013. Former European Trade Commissioner (2000–2004); Chief of Staff to European Commission President Delors (1983–1993).",
+ "31135707": "Peter Sutherland, Director-General of the WTO/GATT (1993–1995); Chairman of the LSE (2009– ).",
+ "31350676": "Ambassador and Permanent Representative of the European Community in Geneva from 1979 to 1994.",
+ "30495229": "WTO Deputy Director-General (1995– ), Deputy USTR (1993–1995), Ambassador to the GATT (1989–1993).",
+ "31948117": "Julio Lacarte (Uruguay), Minister of Industry and Trade and Permanent Representative to the GATT (1984–1993); Chairman and member of the WTO Appellate Body (1995–2002).",
+ "29516230": "Minister of Foreign Affairs (1996–2001); Ambassador to the GATT (1992–1995).",
+ "31012116": "Germain Denis (Canada), Chairman of the International Grains Council and of the Food Aid Committee (1995–2006), based in London; Chairman of the overall market-access negotiating process (1990– ); Chief Negotiator of the Uruguay Round (1986–1994).",
+ "31135731": "Warren Lavorel (USA), Deputy Director-General of the GATT/WTO (1993–1999) and (1987–1993); Uruguay Round Coordinator (1987–1993); Ambassador and Chief Negotiator of the Uruguay Round (1987–1993); Delegate to the Tokyo Round and the GATT (1975–1987).",
+ "31135682": "B. K. Zutshi (India), Ambassador and Permanent Representative to the GATT and Chief Negotiator of the Uruguay Round (1989–1994).",
+ "31949939": "Hassan Abouyoub (Morocco), Ambassador to the GATT (1988–1993).",
+ "31350701": "Ambassador to the GATT (1993–1996).",
+ "29364630": "Long Yongtu (China), Vice-Minister, Ministry of Foreign Trade and Economic Cooperation of the People's Republic of China (MOFTEC) (2002–2003); Chief Negotiator for China's accession to the WTO (1997–2001); Assistant Minister, MOFTEC (1994–1997); Director-General of the Department of International Relations, MOFTEC (1993–1994).",
+ "31350709": "Tim Groser, then Minister of Trade and Climate Change Issues for New Zealand (2005– ), was also Ambassador (2000–2004) and former Deputy Ambassador in Geneva (1990–1993).",
+ "30505854": "Rubens Ricupero was Brazil's Ambassador to the GATT from 1987 to 1991. He later held several important posts, including Minister of Finance of Brazil (1994) and Secretary-General of UNCTAD (1995–2004).",
+ "31171021": "John Weekes (Canada), Chairman of the General Council (1998), Ambassador to the WTO (1995–1999), Ambassador to the GATT (1987–1991); Chairman of the GATT Council (1989).",
+ "31363704": "GATT Ambassador Extraordinary and Plenipotentiary; Permanent Representative to the International Organizations in Geneva (1987–1990); Chancellor of the Gakushuin school.",
+ "29505552": "WTO Ambassador (2000–2007); Senior WTO/GATT official (1991–2000); GATT Ambassador (1984–1988).",
+ "30480359": "Geneva Ambassador and Chief Negotiator for the USTR (1985–1989).",
+ "29505470": "Renaldo Figueredo (Venezuela), Director at UNCTAD (1999–2004); Special Adviser to the UNCTAD Secretary-General, Mr Rubens Ricupero, Minister of Foreign Affairs (1989–1991).",
+ "31170991": "Alan Oxley (Australia), GATT Ambassador (1986–1989); Chairman of the GATT Council (1987).",
+ "29505563": "Ambassador (1978–1989); United Nations Mission (1968–1971).",
+ "31933652": "Richard Nottage (NZ), Ambassador to the UN Office and the GATT (1984–1987).",
+ "31949174": "B. L. Das (India), Director, International Trade Programmes, UNCTAD (1985–1990); Chairman of the GATT Contracting Parties (1983); Chairman of the GATT Council (1982); Ambassador and Permanent Representative to the GATT (1980–1983).",
+ "29516222": "WTO Deputy Director-General (2005– ), WTO Ambassador (2000–2002); Head of Chile's trade policy (1999), Secretary of the Mission to the GATT (1979–1984).",
+ "31170976": "Celso Lafer (Brazil), Minister of Foreign Affairs (2001–2002) and (1992); Minister of Trade (1999), Ambassador to the WTO (1996–1998).",
+ "30480336": "Minnesota Secretary of State (2006–2010); President of the Institute for Agriculture and Trade Policy (1988–2006).",
+ "31598549": "Arif Hussain (India), Chief of Staff to Mr Dunkel, 1985–1993.",
+ "31350755": "David Hartridge was Chief of Staff to Arthur Dunkel, Director-General of the GATT, a post he held from 1980 to 1985. In this video, Mr Hartridge recounts the importance of the personal and professional relationship between Arthur Dunkel and Paul Tran, as well as the special role Paul Tran played throughout the Uruguay Round.",
+ "29469079": "(European Commission); Director-General for the Environment (2008– ), Delegate in Geneva, Coordination of multilateral trade policy in Brussels (1993–2000); Uruguay Round negotiations (1986–1993); recruited by TVT in 1977 for the textiles negotiations (1977–1982).",
+ "29516228": "Delegate to the GATT (1987–1989), Deputy Head of the Permanent Delegation of the European Commission to the GATT/WTO (1993–1995), Director for WTO Affairs at the Directorate-General for Trade, European Commission (1996–2003), and currently Director-General for the Budget (European Commission).",
+ "29523389": "(European Commission), Director-General for Health and Consumer Protection (2004); GATT Coordinator in the United Kingdom (1993); Deputy Chief of Staff to Sir Leon Brittan.",
+ "31012132": "Ambassador Lê served as Permanent Representative of the Republic of Vietnam to UNCTAD and other international organizations in Geneva (1966–1975). In this video, Ambassador Lê addresses several key themes, notably the role of developing countries in the creation of UNCTAD.",
+ "30717737": "Ngô Quang Xuân (Viet Nam) served as Vietnam's Ambassador to the United Nations in Geneva from 2002 to 2008.",
+ "30495085": "(Vietnam) Deputy Prime Minister and Minister of Foreign Affairs (1997 to 2002).",
+ "31598540": "Hamid Mamdouh, Counsellor, Egyptian Mission to the GATT (1985–1989), Legal Adviser to the GATT negotiating service, Secretary of the Council for Trade in Services (1995–2001), Director of the WTO Services Division (2001– ).",
+ "31681853": "Åke Linden, GATT Secretariat (1961–1994), Director of the Legal Affairs Office (1983–84), Special Adviser to the Director-General from 1989 to 1993, Assistant to the Director-General (1993–94).",
+ "31935884": "Official of the European Commission (1965–2003), Directorate-General for Trade.",
+ "31948123": "Benny Berg Sorensen: official of the European Commission, Directorate-General for Trade (1977–2009). Key member of Paul Tran's team in the textiles negotiations.",
+ "33176624": "Ambassador of France, including to the United Nations in Geneva between the Tokyo Round and the preparatory work for the Uruguay Round; author of Indignez-vous! (Time for Outrage!, 2010)."
 };
 
 /* Les descriptions des vidéos sont en français sur les deux versions du site actuel. */
