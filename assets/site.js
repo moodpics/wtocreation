@@ -155,7 +155,7 @@
         <ul class="says">${T.says.map(s => `<li><a href="${vlink(s[0])}">${esc(s[1])}</a> ${esc(s[2])}</li>`).join('')}</ul>
         <a class="btn" href="${vlink(TRAN_ID)}">${esc(t.tranCta)}</a>
       </div>
-      <div>${player(TRAN_ID, 'Paul Trân', true)}</div>
+      <div>${player(TRAN_ID, 'Paul Trân Van Thinh', true)}</div>
     </section>
     <div class="index-head">
       <h2>${esc(t.videosTitle)}</h2>
