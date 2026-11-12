@@ -33,7 +33,8 @@
   const dur = s => { const m = Math.floor(s / 60), r = s % 60; return `${m}:${String(r).padStart(2, '0')}`; };
   const label = v => COUNTRY[v[0]] ? `${v[1]} (${COUNTRY[v[0]][lang === 'en' ? 1 : 0]})` : v[1];
   const initials = n => n.replace(/\(.*\)/, '').replace(/,.*/, '').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('');
-  const vimeoSrc = (id, auto) => `https://player.vimeo.com/video/${id}?dnt=1${auto ? '&autoplay=1' : ''}`;
+  const vh = id => (typeof VH !== 'undefined' && VH[id]) ? VH[id] : '';
+  const vimeoSrc = (id, auto) => `https://player.vimeo.com/video/${id}?${vh(id) ? 'h=' + vh(id) + '&' : ''}dnt=1${auto ? '&autoplay=1' : ''}`;
   const iframe = (id, title, auto) => `<iframe src="${vimeoSrc(id, auto)}" title="${esc(title)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
   /* facade : vignette puis lecteur au clic (accueil) ; lecteur direct (page vidéo) */
   function player(id, title, facade) {
@@ -43,7 +44,7 @@
       <button type="button" class="ring" aria-label="${esc(t.watch)} : ${esc(title)}">${playSvg}</button>
     </div>`;
   }
-  const vimeoLink = id => `<p class="vlink"><a href="https://vimeo.com/${id}" target="_blank" rel="noopener">${esc(t.onVimeo)}</a></p>`;
+  const vimeoLink = id => `<p class="vlink"><a href="https://vimeo.com/${id}${vh(id) ? '/' + vh(id) : ''}" target="_blank" rel="noopener">${esc(t.onVimeo)}</a></p>`;
 
   /* ---------- Textes propres à cette version ---------- */
   Object.assign(UI.fr, { mhA: "Entretiens", mhB: "Près de 40 témoignages", kA: "Le choix", kB: "L’essentiel", kC: "L’hommage", readFull: "À propos de ce projet", foldFull: "Replier le texte", briefTitle: "L'OMC en bref", tranCta: "Voir son entretien", watch: "Lire la vidéo", onVimeo: "Voir sur Vimeo" });
