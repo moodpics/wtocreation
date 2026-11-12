@@ -51,18 +51,16 @@
 
   const HERO = {
     fr: {
-      lead: "Ils ont créé l’OMC. Ils racontent.",
+      lead: "Ils ont créé l’Organisation mondiale du commerce. Ils racontent.",
       sub: "1994 : le Cycle d’Uruguay s’achève, l’accord de Marrakech est signé.",
-      big: "L’Organisation mondiale du commerce (OMC) était née.",
-      fine: "C’est le fruit d’une douzaine d’années de travail.",
-      sub2: "Puis, près de 40 ministres, ambassadeurs et négociateurs racontent, avec leurs propres mots, comment elle a été créée, de 1982 à 1994."
+      big: "L’OMC est née.",
+      sub2: "Près de 40 ministres, ambassadeurs et négociateurs racontent, avec leurs propres mots, comment elle a été créée, de 1982 à 1994."
     },
     en: {
-      lead: "They created the WTO. They tell the story.",
+      lead: "They created the World Trade Organization. They tell the story.",
       sub: "1994: the Uruguay Round comes to an end and the Marrakech Agreement is signed.",
-      big: "The World Trade Organization (WTO) was born.",
-      fine: "It was the fruit of some twelve years of work.",
-      sub2: "Then, nearly 40 ministers, ambassadors and negotiators tell, in their own words, how it was created, from 1982 to 1994."
+      big: "The WTO is born.",
+      sub2: "Nearly 40 ministers, ambassadors and negotiators tell, in their own words, how it was created, from 1982 to 1994."
     }
   };
   const BRIDGE = {
@@ -174,7 +172,7 @@
     <div class="masthead"><a href="https://www.wto.org/" target="_blank" rel="noopener" aria-label="World Trade Organization"><img src="${BASE}assets/img/wto-logo-light.png" alt="World Trade Organization" width="260" height="77"></a>
       <p class="meta"><span>${esc(t.mhA)}</span><i></i><span>1982 — 1994</span><i></i><span>${esc(t.mhB)}</span></p></div>
     <section class="hero">
-      <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p><p class="sub sub-big">${esc(H.big)}</p><p class="sub sub-fine">${esc(H.fine)}</p><p class="sub sub2">${esc(H.sub2)}</p></div>
+      <div><h1>${esc(H.lead)}</h1><p class="sub">${esc(H.sub)}</p><p class="sub sub-big">${esc(H.big)}</p><p class="sub sub2">${esc(H.sub2)}</p></div>
       <div>${player(v0[0], v0[1], true)}<p class="cap"><a href="${vlink(v0[0])}">${esc(v0[1])}</a></p></div>
     </section>
     <section class="bridge" aria-labelledby="bridge-h"><p class="kicker">${esc(t.kA)}</p>

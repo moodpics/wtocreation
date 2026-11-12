@@ -509,7 +509,7 @@ ul { list-style: none; }
   .uru-i { transform: none !important; filter: none !important; transition: opacity .2s linear !important; transition-delay: 0s !important; }
 }
 /* Accueil : échelle typographique (≈ ×1,5) et composition décentrée */
-.hero h1 { font-size: clamp(2.5rem, 4.2cqi, 3.875rem); line-height: 1; letter-spacing: -.015em; max-width: 10ch; margin: 0 0 clamp(28px, 3.4cqi, 44px); }
+.hero h1 { font-size: clamp(2.25rem, 3.7cqi, 3.5rem); line-height: 1.02; letter-spacing: -.015em; max-width: 14ch; margin: 0 0 clamp(28px, 3.4cqi, 44px); }
 .hero .sub, .hero .sub-big, .hero .sub-fine, .hero .sub2 { margin-left: clamp(18px, 4.5cqi, 72px); }
 .hero .sub { position: relative; margin-top: 0; max-width: 42ch; font-family: var(--sans); font-size: .75rem; line-height: 1.7; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
 .hero .sub::before { content: ""; display: block; width: 2.5rem; height: 1px; background: var(--amber); opacity: .7; margin-bottom: 14px; }
@@ -520,7 +520,7 @@ ul { list-style: none; }
 .hero .sub2 { margin-top: clamp(28px, 3.2cqi, 44px); margin-left: clamp(36px, 9cqi, 144px); max-width: 34ch; font-family: var(--serif); font-size: clamp(1.25rem, 1.8cqi, 1.5rem); line-height: 1.35; letter-spacing: 0; text-transform: none; color: var(--soft); }
 .hero .sub2::before { display: none; }
 @container site (max-width: 940px) {
-  .hero h1 { max-width: 12ch; font-size: clamp(2.5rem, 9cqi, 3.75rem); }
+  .hero h1 { max-width: 15ch; font-size: clamp(2.25rem, 8cqi, 3.5rem); }
   .hero .sub-big { font-size: clamp(1.875rem, 6.4cqi, 2.5rem); max-width: 16ch; }
   .hero .sub2 { margin-left: clamp(36px, 12cqi, 96px); max-width: 32ch; }
 }
